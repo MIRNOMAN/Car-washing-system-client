@@ -1,7 +1,17 @@
+import { useState } from 'react';
 import Headroom from 'react-headroom';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 const Navbar = () => {
+    const [dropDownState, setDropDownState] = useState(false);
+    const url = window.location.href;
+    const currentRoute = url.split('/')[3];
+    const user = useAppSelector(useCurrentUser);
+    const dispatch = useAppDispatch();
+    const { data: fullUser } = useGetFullUserQuery([{ email: user?.user }], { skip: !user });
+
+
   return (
     < Headroom className='!z-[2000]' >
 

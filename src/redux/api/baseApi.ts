@@ -1,28 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-    BaseQueryApi,
-    BaseQueryFn,
-    createApi,
-    DefinitionType,
-    FetchArgs,
-    fetchBaseQuery,
-  } from "@reduxjs/toolkit/query/react";
-  import { RootState } from "../store";
-  import { logout } from "../features/auth/authSlice";
-  import { toast } from "sonner";
-  
-  const baseQuery = fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
-    credentials: "include",
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token;
-  
-      if (token) return headers.set('authorization', `Bearer ${token}`);
-      if (!token) return headers;
-    },
-  });
+import { BaseQueryApi, BaseQueryFn, createApi, DefinitionType, FetchArgs, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import toast from "react-hot-toast";
+import { RootState } from "../store";
+import { logout } from "../features/auth/authSlice";
 
-  const baseQueryWithAdditionalFeatures: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = async (args, api, extraOptions): Promise<any> => {
+
+
+const baseQuery = fetchBaseQuery({
+    baseUrl: 'http://localhost:5000/api',
+    credentials: 'include',
+
+    prepareHeaders: (headers, { getState }) => {
+        const token = (getState() as RootState).auth.token;
+        if (token) return headers.set('authorization', `Bearer ${token}`);
+        if (!token) return headers;
+    }
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const baseQueryWithAdditionalFeatures: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = async (args, api, extraOptions): Promise<any> => {
     const result = await baseQuery(args, api, extraOptions);
 
     switch (result?.error?.status) {
@@ -44,10 +39,9 @@ import {
     return result;
 }
 
-  export const baseApi = createApi({
-    reducerPath: "baseApi",
+export const baseApi = createApi({
+    reducerPath: 'baseApi',
     baseQuery: baseQueryWithAdditionalFeatures,
-    tagTypes: ['semester', 'courses', 'offeredCourse'],
-    endpoints: () => ({}),
-  });
-  
+    tagTypes: ['patchUser', 'patchUserRole', 'vehicle', 'booking', 'statistics'],
+    endpoints: () => ({})
+})
