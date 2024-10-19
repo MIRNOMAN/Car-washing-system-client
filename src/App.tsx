@@ -1,12 +1,15 @@
+import { Outlet } from "react-router-dom"
 
 
 function App() {
  
 
   return (
-   <div>
-    <h1 className="text-4xl">This car wash client side</h1>
-   </div>
+    <div className="overflow-hidden">
+            {/* <Navbar /> */}
+            <div className="min-h-screen bg-gray-50"><Outlet /></div>
+            {/* <Footer /> */}
+        </div>
   )
 }
 
