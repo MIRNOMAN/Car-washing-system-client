@@ -3,21 +3,22 @@ import Headroom from 'react-headroom';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { logout, useCurentUser } from '../../redux/features/auth/authSlice';
 const Navbar = () => {
     const [dropDownState, setDropDownState] = useState(false);
     const url = window.location.href;
     const currentRoute = url.split('/')[3];
-    const user = useAppSelector(useCurrentUser);
+    const user = useAppSelector(useCurentUser);
     const dispatch = useAppDispatch();
-    const { data: fullUser } = useGetFullUserQuery([{ email: user?.user }], { skip: !user });
+    
 
 
   return (
     < Headroom className='!z-[2000]' >
 
-    <nav className="flex z-20 border-b items-center justify-between text-[#393E46] px-4 py-2 bg-white">
-        <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-xl font-semibold  transition-all duration-200 hover:scale-110">
-            <Link to={'/'}> <h2 >Rent<span className='text-rose-600'>NGo—</span></h2></Link>
+    <nav className="flex z-20 border-b items-center justify-between text-[#393E46] px-5 py-2 bg-white">
+        <div className="scale-100 cursor-pointer uppercase font-bold rounded-2xl px-3 py-2 text-xl   transition-all duration-200 hover:scale-110">
+            <Link to={'/'}> <h2 >Quick<span className='text-rose-600'>Wash</span></h2></Link>
         </div>
         <ul className="hidden items-center justify-between gap-10 md:flex">
             <NavLink to={'/'}>
@@ -49,13 +50,7 @@ const Navbar = () => {
                 </li>
             </NavLink> :
                 <div className="dropdown dropdown-end">
-                    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
-                            <img
-                                alt="Profile img"
-                                src={fullUser?.data?.photo ? fullUser?.data?.photo : demoProfile} />
-                        </div>
-                    </div>
+                   
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow">
@@ -82,13 +77,7 @@ const Navbar = () => {
 
             {/* mobile profile */}
             {user && <div className="dropdown dropdown-end">
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                    <div className="w-10 rounded-full">
-                        <img
-                            alt="Profile img"
-                            src={fullUser?.data?.photo ? fullUser?.data?.photo : demoProfile} />
-                    </div>
-                </div>
+        
                 <ul
                     tabIndex={0}
                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow">
