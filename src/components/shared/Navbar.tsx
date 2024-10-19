@@ -10,7 +10,7 @@ const Navbar = () => {
     const currentRoute = url.split('/')[3];
     const user = useAppSelector(useCurentUser);
     const dispatch = useAppDispatch();
-    
+    // const { data: fullUser } = useGetFullUserQuery([{ email: user?.user }], { skip: !user });
 
 
   return (
@@ -27,15 +27,15 @@ const Navbar = () => {
                 </li>
             </NavLink>
 
-            <NavLink to={'/vehicles'}>
+            <NavLink to={'/booking'}>
                 <li className="group flex  cursor-pointer flex-col">
-                    Vehicles<span className={`mt-[2px] h-[3px] ${currentRoute === 'vehicles' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
+                Booking<span className={`mt-[2px] h-[3px] ${currentRoute === 'vehicles' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
                 </li>
             </NavLink>
 
-            <NavLink to={'/about'}>
+            <NavLink to={'/services'}>
                 <li className="group flex  cursor-pointer flex-col">
-                    About<span className={`mt-[2px] h-[3px] ${currentRoute === 'about' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
+                Services<span className={`mt-[2px] h-[3px] ${currentRoute === 'about' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
                 </li>
             </NavLink>
             <NavLink to={'/contact'}>
@@ -50,7 +50,15 @@ const Navbar = () => {
                 </li>
             </NavLink> :
                 <div className="dropdown dropdown-end">
-                   
+                   <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img
+                                        alt="Profile img"
+                                        // src={fullUser?.data?.photo ? fullUser?.data?.photo : demoProfile}
+                                        src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        />
+                                </div>
+                            </div>
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow">
@@ -77,7 +85,15 @@ const Navbar = () => {
 
             {/* mobile profile */}
             {user && <div className="dropdown dropdown-end">
-        
+                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                            <div className="w-10 rounded-full">
+                                <img
+                                    alt="Profile img"
+                                    // src={fullUser?.data?.photo ? fullUser?.data?.photo : demoProfile}
+                                    src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    />
+                            </div>
+                        </div>
                 <ul
                     tabIndex={0}
                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow">

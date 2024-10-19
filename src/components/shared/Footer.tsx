@@ -44,7 +44,7 @@ const Footer = () => {
 
                 <div className="flex items-center justify-between">
                     <Link to={'/'}>
-                        <h2 className="text-white font-semibold text-xl">Rent<span className='text-rose-600'>NGo—</span></h2>
+                        <h2 className="text-white font-bold text-xl">Quick<span className='text-rose-600'>Wash</span></h2>
                     </Link>
 
                     <div className="flex -mx-2">

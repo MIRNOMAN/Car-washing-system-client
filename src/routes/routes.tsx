@@ -9,6 +9,7 @@ import Services from "../pages/root/Services";
 import ServiceDetails from "../pages/root/ServiceDetails";
 import ProfileSettings from "../pages/profile/ProfileSettings";
 import Payout from "../pages/root/payment/Payout";
+import Contact from "../pages/root/Contact";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: '/booking ', element: <Booking  /> },
       { path: '/services ', element: <Services  /> },
+      { path: '/contact ', element: <Contact/> },
       { path: '/services/details/:_id', element: <ServiceDetails /> },
       { path: '/auth/login', element: <Login /> },
       { path: '/auth/register', element: <Register /> },
