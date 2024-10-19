@@ -4,6 +4,11 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import NotFoundError from "../components/error/NotFoundError";
 import Home from "../pages/root/Home";
+import Booking from "../pages/root/Booking";
+import Services from "../pages/root/Services";
+import ServiceDetails from "../pages/root/ServiceDetails";
+import ProfileSettings from "../pages/profile/ProfileSettings";
+import Payout from "../pages/root/payment/Payout";
 
 const router = createBrowserRouter([
     {

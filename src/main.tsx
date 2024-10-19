@@ -11,10 +11,10 @@ import { persistor, store } from './redux/store.ts'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
   <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={false} persistor={persistor}>
         <RouterProvider router={router} />
+        <Toaster position="bottom-right" />
       </PersistGate>
-      <Toaster />
     </Provider>
   </StrictMode>,
 )
