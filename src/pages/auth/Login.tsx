@@ -49,7 +49,7 @@ const Login = () => {
         }
 
     } catch (error) {
-        toast.error('An error occurred. Please try again later. 🙁', { id: toastId });
+        toast.error('An error occurred. Please try again later.', { id: toastId });
         console.log(error);
     }
 }
