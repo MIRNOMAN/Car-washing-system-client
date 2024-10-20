@@ -1,8 +1,22 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import Navbar from "../../components/shared/Navbar"
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useLoginUserMutation } from "../../redux/features/auth/authApi";
+import { useAppDispatch } from "../../redux/hooks";
 
 
 const Login = () => {
+  const { register, handleSubmit } = useForm();
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [loginUser] = useLoginUserMutation();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location?.search);
+  const redirect = searchParams.get('redirect');
+  const navigate = useNavigate();
+
+
   return (
     <div>
             <Navbar />
