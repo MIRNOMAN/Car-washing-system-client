@@ -29,13 +29,13 @@ const Navbar = () => {
 
             <NavLink to={'/booking'}>
                 <li className="group flex  cursor-pointer flex-col">
-                Booking<span className={`mt-[2px] h-[3px] ${currentRoute === 'vehicles' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
+                Booking<span className={`mt-[2px] h-[3px] ${currentRoute === 'booking' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
                 </li>
             </NavLink>
 
             <NavLink to={'/services'}>
                 <li className="group flex  cursor-pointer flex-col">
-                Services<span className={`mt-[2px] h-[3px] ${currentRoute === 'about' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
+                Services<span className={`mt-[2px] h-[3px] ${currentRoute === 'services' ? 'w-full' : 'w-0'} rounded-full bg-rose-600 transition-all duration-300 group-hover:w-full`}></span>
                 </li>
             </NavLink>
             <NavLink to={'/contact'}>
@@ -125,14 +125,14 @@ const Navbar = () => {
                                 Home
                             </li>
                         </NavLink>
-                        <NavLink to={'/vehicles'}>
+                        <NavLink to={'/booking'}>
                             <li className="cursor-pointer  px-6 py-2 ">
-                                Vehicles
+                            Booking
                             </li>
                         </NavLink>
-                        <NavLink to={'/about'}>
+                        <NavLink to={'/services'}>
                             <li className="cursor-pointer  px-6 py-2 ">
-                                About
+                            Services
                             </li>
                         </NavLink>
                         <NavLink to={'/contact'}>
