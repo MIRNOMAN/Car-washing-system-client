@@ -1,9 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import Navbar from "../../components/shared/Navbar"
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useLoginUserMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hooks";
+import toast from "react-hot-toast";
+import { setUser, Tuser } from "../../redux/features/auth/authSlice";
+import { jwtDecode } from "jwt-decode";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 const Login = () => {
@@ -17,6 +21,38 @@ const Login = () => {
   const navigate = useNavigate();
 
 
+  const handleLoginAction: SubmitHandler<FieldValues> = async (credential) => {
+    const toastId = toast.loading('Logging in...');
+
+    try {
+        const serverResponse = await loginUser(credential);
+        if (!serverResponse?.data?.success) {
+            toast.dismiss(toastId);
+
+        } else {
+            //! actual action
+            const extractUserFormToken = (jwtDecode(serverResponse?.data?.token as string) as Tuser);
+            dispatch(setUser({
+                user: extractUserFormToken,
+                token: serverResponse?.data?.token
+            }));
+
+            if (redirect) {
+                navigate(`/vehicles/details/${redirect}`);
+            } else if (location?.state) {
+                navigate(location.state);
+            } else {
+                // console.log(serverResponse?.data?.data?.role);
+                navigate(`/dashboard/${serverResponse?.data?.data?.role}/overview`)
+            }
+            toast.success('Logged in Success', { id: toastId });
+        }
+
+    } catch (error) {
+        toast.error('An error occurred. Please try again later. 🙁', { id: toastId });
+        console.log(error);
+    }
+}
   return (
     <div>
             <Navbar />
