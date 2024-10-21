@@ -1,18 +1,19 @@
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
-import { TAuthEmail, TNotificationEmail } from '../interface/email.emailjs.params.interface';
+import { TAuthEmail, TNotificationEmail } from '../types/email.emailjs.params.interface';
+
 
 // email js configuration
-const SERVICE_ID = "rentngo";
-const PUBLIC_KEY = "LHLlu1j3Zu_y4Qe8d";
+const SERVICE_ID = "service_4416tnf";
+const PUBLIC_KEY = "OtcUle7FaostuAbAz";
 let TEMPLATE_ID: string;
 
 async function sendEmail(templateId: number, templateParams: TAuthEmail | TNotificationEmail): Promise<EmailJSResponseStatus | null> {
     switch (templateId) {
         case 1:
-            TEMPLATE_ID = 'template_c57ck16'; //OTP
+            TEMPLATE_ID = 'template_dj4c7qp'; //OTP
             break;
         case 2:
-            TEMPLATE_ID = 'template_je509rr'; //Notification
+            TEMPLATE_ID = 'template_rl77sal'; //Notification
             break;
         default:
             break;

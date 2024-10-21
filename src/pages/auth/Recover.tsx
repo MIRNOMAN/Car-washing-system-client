@@ -1,19 +1,19 @@
 import React, { FC, useEffect, useState } from 'react';
 import axios from 'axios';
-import demoProfile from '../../assets/demo-profile.jpg';
+import demoProfile from '../../assets/demoProfile.png';
 import { GetProps, Input } from 'antd';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import sendEmail from '../../utils/sendEmail';
 import Navbar from '../../components/shared/Navbar';
 import Footer from '../../components/shared/Footer';
+import { TAuthEmail, TNotificationEmail } from '../../types/email.emailjs.params.interface';
 type OTPProps = GetProps<typeof Input.OTP>;
 
 
 interface TAxiosResponse {
   name: string;
   email: string;
-  photo: string
   token: string
 }
 
@@ -38,7 +38,7 @@ const Recover: FC  = () => {
         const email = (event.target as HTMLFormElement).email.value;
 
         try {
-            const res = await axios.get<{ success: boolean; data: TAxiosResponse }>(`https://car-rental-reservation-system-nine.vercel.app/api/auth/user/recovery`, {
+            const res = await axios.get<{ success: boolean; data: TAxiosResponse }>(`http://localhost:5000/api/auth/user/recovery`, {
                 params: {
                     email
                 }
@@ -209,7 +209,7 @@ useEffect(() => {
                             {/* name and photo */}
                             <div className="flex flex-col justify-center items-center">
                                 <img
-                                    src={user?.photo ? user?.photo : demoProfile}
+                                    src={demoProfile}
                                     alt="Profile photo"
                                     className="w-24 h-24 rounded-full shadow-lg mb-4"
                                 />
