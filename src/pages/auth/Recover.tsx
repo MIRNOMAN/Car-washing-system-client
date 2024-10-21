@@ -1,9 +1,67 @@
 import { Input } from "antd";
 import Footer from "../../components/shared/Footer";
 import Navbar from "../../components/shared/Navbar";
+import { FC } from "react";
 
+interface TAxiosResponse {
+  name: string;
+  email: string;
+  photo: string
+  token: string
+}
 
-const Recover = () => {
+const WRONG_EMAIL_LIMIT = 3;
+const LOCK_TIME = 15 * 60 * 1000;
+
+const Recover: FC  = () => {
+
+  const [user, setUser] = useState<TAxiosResponse | null>(null);
+    const [error, setError] = useState<string | null>(null);
+    const [failedAttempts, setFailedAttempts] = useState<number>(0);
+    const [isLocked, setIsLocked] = useState<boolean>(false);
+    // const [lockTime, setLockTime] = useState<Date | null>(null);
+    const [openModal, setOpenModal] = useState(false);
+    const [verificationCode, setVerificationCode] = useState<string | null>(null);
+    const [passed, setPassed] = useState<boolean>(false);
+    const navigate = useNavigate();
+
+    const handleFindUser = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+        event.preventDefault();
+        setError('Searching...');
+        const email = (event.target as HTMLFormElement).email.value;
+
+        try {
+            const res = await axios.get<{ success: boolean; data: TAxiosResponse }>(`https://car-rental-reservation-system-nine.vercel.app/api/auth/user/recovery`, {
+                params: {
+                    email
+                }
+            });
+            if (res?.data?.success) {
+                setFailedAttempts(0);
+                setUser((res.data?.data as TAxiosResponse));
+                setError(null);
+
+            } else {
+                const newFailedAttempts = failedAttempts + 1;
+                setFailedAttempts(newFailedAttempts);
+
+                const remainingAttempts = WRONG_EMAIL_LIMIT - newFailedAttempts;
+
+                if (newFailedAttempts >= WRONG_EMAIL_LIMIT) {
+                    const lockUntil = new Date(Date.now() + LOCK_TIME);
+                    setIsLocked(true);
+                    localStorage.setItem('lockTime', lockUntil.toString());
+                    setError(`Bro! Too many failed attempts. Session restricted for 15 minutes.`)
+                } else {
+                    setError(`Invalid email. You have ${remainingAttempts} attempt(s) left.`);
+                }
+            }
+        } catch (error) {
+            setError('Something went wrong');
+            console.log(error);
+        }
+    };
+
   return (
     <div>
             <Navbar />
