@@ -62,6 +62,35 @@ const Recover: FC  = () => {
         }
     };
 
+    const handleSendVerificationEmail = async () => {
+      const toastId = toast.loading('Sending Email...');
+      const sixDigitCode = String(Math.floor(100000 + Math.random() * 900000))
+      setVerificationCode(sixDigitCode);
+
+      // DONE: Email verification code to user for rest password
+      const EMAIL_PARAMS: TAuthEmail = {
+          name: user?.name as string,
+          email: user?.email as string,
+          otp: sixDigitCode as string
+      }
+
+      try {
+          const res = await sendEmail(1, EMAIL_PARAMS);
+          if (res?.status == 200) {
+              toast.success('You have been emailed with a 6 digit code. If you do not find the email in your inbox, please check your spam or junk folder', { id: toastId });
+              setOpenModal(true);
+          }
+      } catch (error) {
+          toast.error('For an unknown reason we failed to send you the verification email. Please try again', {
+              id: toastId
+          })
+          setUser(null);
+          console.log(error);
+      }
+
+  }
+
+
   return (
     <div>
             <Navbar />
