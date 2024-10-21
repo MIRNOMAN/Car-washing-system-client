@@ -1,7 +1,14 @@
-import { Input } from "antd";
-import Footer from "../../components/shared/Footer";
-import Navbar from "../../components/shared/Navbar";
-import { FC } from "react";
+import React, { FC, useEffect, useState } from 'react';
+import axios from 'axios';
+import demoProfile from '../../assets/demo-profile.jpg';
+import { GetProps, Input } from 'antd';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import sendEmail from '../../utils/sendEmail';
+import Navbar from '../../components/shared/Navbar';
+import Footer from '../../components/shared/Footer';
+type OTPProps = GetProps<typeof Input.OTP>;
+
 
 interface TAxiosResponse {
   name: string;
@@ -103,6 +110,69 @@ const Recover: FC  = () => {
 const sharedProps: OTPProps = {
     onChange,
 };
+const handleChangePassword = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  setError(null);
+  const toastId = toast.loading('Working...')
+  const password = (event.target as HTMLFormElement)?.password?.value;
+  const password2 = (event.target as HTMLFormElement)?.password2?.value;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  if (!passwordRegex.test(password)) {
+      setError(`Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character`);
+      toast.dismiss(toastId);
+      return;
+  } else if (password !== password2) {
+      setError(`Password did not match`);
+      toast.dismiss(toastId);
+      return;
+  } else {
+      // DONE: call the server to set new password;
+      const res = await axios.patch<{ success: boolean; message: string }>(`https://car-rental-reservation-system-nine.vercel.app/api/auth/user/recovery/passed`, {
+          token: user?.token,
+          newPassword: password
+      });
+
+      if (res.data.success) {
+          const EMAIL_PARAMS: TNotificationEmail = {
+              subject: 'Welcome back',
+              name: user?.name as string,
+              email: user?.email as string,
+              description: `We happy to inform you that your RentNGo account has been successfully recovered. You can now log in to your account using your new password. 
+              
+              If you did not initiate this password recovery, please contact our support team immediately.`
+          };
+
+          const emailjsRes = await sendEmail(2, EMAIL_PARAMS);
+          if (emailjsRes?.status === 200) {
+              toast.success(res.data.message, { id: toastId });
+              navigate('/auth/login');
+              setUser(null);
+              setPassed(false);
+          }
+
+      } else {
+          toast.error(res.data.message, { id: toastId });
+          setUser(null);
+          setPassed(false);
+      }
+  }
+}
+
+useEffect(() => {
+  const savedLockTime = localStorage.getItem('lockTime');
+  if (savedLockTime) {
+      const timeLeft = new Date(savedLockTime).getTime() - Date.now();
+      if (timeLeft > 0) {
+          setError('Bro! Too many failed attempts. Session restricted for 15 minutes.')
+          setIsLocked(true);
+          setTimeout(() => {
+              setIsLocked(false);
+              localStorage.removeItem('lockTime');
+          }, timeLeft);
+      }
+  }
+}, []);
 
   return (
     <div>
