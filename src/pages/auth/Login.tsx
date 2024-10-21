@@ -5,9 +5,10 @@ import { useState } from "react";
 import { useLoginUserMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hooks";
 import toast from "react-hot-toast";
-import { setUser, Tuser } from "../../redux/features/auth/authSlice";
+import { setUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { TUser } from "../../types/user.auth.interface";
 
 
 const Login = () => {
@@ -31,14 +32,14 @@ const Login = () => {
 
         } else {
             //! actual action
-            const extractUserFormToken = (jwtDecode(serverResponse?.data?.token as string) as Tuser);
+            const extractUserFormToken = (jwtDecode(serverResponse?.data?.token as string) as TUser);
             dispatch(setUser({
                 user: extractUserFormToken,
                 token: serverResponse?.data?.token
             }));
 
             if (redirect) {
-                navigate(`/vehicles/details/${redirect}`);
+                navigate(`/services/details/${redirect}`);
             } else if (location?.state) {
                 navigate(location.state);
             } else {

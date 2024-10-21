@@ -10,6 +10,7 @@ import ServiceDetails from "../pages/root/ServiceDetails";
 import ProfileSettings from "../pages/profile/ProfileSettings";
 import Payout from "../pages/root/payment/Payout";
 import Contact from "../pages/root/Contact";
+import Recover from "../pages/auth/Recover";
 
 const router = createBrowserRouter([
     {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
       { path: '/services/details/:_id', element: <ServiceDetails /> },
       { path: '/auth/login', element: <Login /> },
       { path: '/auth/register', element: <Register /> },
-      // { path: '/auth/recover', element: <Recover /> },
+      { path: '/auth/recover', element: <Recover /> },
       { path: '/profile/settings', element: <ProfileSettings /> },
       { path: '/user/booking/payout/:bookingId', element: <Payout /> },
 
