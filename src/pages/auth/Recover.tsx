@@ -90,6 +90,19 @@ const Recover: FC  = () => {
 
   }
 
+  const onChange: OTPProps['onChange'] = (inputtedVerificationCode) => {
+    setError(null);
+    if (inputtedVerificationCode !== verificationCode) {
+        setError('Uhh Bro! OTP did not match. Check again');
+        return
+    }
+    setPassed(true);
+    setOpenModal(false);
+};
+
+const sharedProps: OTPProps = {
+    onChange,
+};
 
   return (
     <div>
