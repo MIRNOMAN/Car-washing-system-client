@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../../components/shared/Navbar";
 import toast from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useCreateUserMutation } from "../../redux/features/auth/authApi";
@@ -55,7 +54,7 @@ const Register = () => {
 
   return (
     <div>
-      <Navbar />
+
       <section className="" data-aos="zoom-out">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-screen md:!pt-20 lg:py-0">
           <h2 className="text-3xl font-bold Oswald mb-5">

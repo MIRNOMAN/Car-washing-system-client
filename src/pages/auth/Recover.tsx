@@ -102,7 +102,7 @@ const Recover: FC  = () => {
   const onChange: OTPProps['onChange'] = (inputtedVerificationCode) => {
     setError(null);
     if (inputtedVerificationCode !== verificationCode) {
-        setError('Uhh Bro! OTP did not match. Check again');
+        setError(' OTP did not match. Check again');
         return
     }
     setPassed(true);
@@ -166,7 +166,7 @@ useEffect(() => {
   if (savedLockTime) {
       const timeLeft = new Date(savedLockTime).getTime() - Date.now();
       if (timeLeft > 0) {
-          setError('Bro! Too many failed attempts. Session restricted for 15 minutes.')
+          setError('Too many failed attempts. Session restricted for 15 minutes.')
           setIsLocked(true);
           setTimeout(() => {
               setIsLocked(false);
@@ -233,7 +233,7 @@ useEffect(() => {
                         <div className=" flex flex-col mt-2 justify-center px-5 md:px-10 items-center border-l">
                             {/* name and photo */}
                             <form className='w-full' onSubmit={handleChangePassword}>
-                                <h3 className='text-xl '>Welcome Back Bro!</h3>
+                                <h3 className='text-xl '>Create New Password</h3>
                                 <small className='leading-none'>You have recovered everything in your account. We are delighted to be with you on this journey</small>
                                 <div className="mb-4 mt-4">
                                     <input
