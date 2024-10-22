@@ -1,19 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define the shape of the review
-interface Review {
+export interface TReview {
   id: string; // or number, depending on your ID type
   rating: number;
-  comment: string;
+  feedback: string;
 }
 
 // Define the shape of the reviews state
-interface ReviewsState {
-  reviews: Review[];
+const initialState: {
+  reviews: TReview[];
   averageRating: number;
-}
-
-const initialState: ReviewsState = {
+} = {
   reviews: [],
   averageRating: 0,
 };
@@ -22,7 +20,7 @@ const reviewsSlice = createSlice({
   name: 'reviews',
   initialState,
   reducers: {
-    addReview: (state, action: PayloadAction<Review>) => {
+    addReview: (state, action: PayloadAction<TReview>) => {
       const newReview = action.payload;
       state.reviews.push(newReview);
       // Update the average rating

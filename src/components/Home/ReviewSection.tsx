@@ -1,40 +1,53 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addReview, deleteReview } from "../../redux/features/review/reviewsSlice"; // Adjust the path as necessary
+import { RootState } from "../../redux/store"; // Adjust this path to your store location
+import { addReview, deleteReview, TReview } from "../../redux/features/review/reviewsSlice"; // Adjust the path as necessary
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 
+// interface TReview {
+//   id: string;
+//   rating: number;
+//   feedback: string;
+// }
+
 const ReviewSection = () => {
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.reviews.reviews);
-  const averageRating = useSelector((state) => state.reviews.averageRating);
+  const reviews: TReview[] = useSelector((state: RootState) => state.reviews.reviews);
+  const averageRating = useSelector((state: RootState) => state.reviews.averageRating);
 
-  const [rating, setRating] = useState(0);
-  const [feedback, setFeedback] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulating login state
+  const [rating, setRating] = useState<number>(0);
+  const [feedback, setFeedback] = useState<string>('');
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Simulating login state
 
   // Function to handle star rating click
-  const handleStarClick = (star) => {
+  const handleStarClick = (star: number) => {
     setRating(star);
   };
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (rating === 0 || feedback === '') {
       alert('Please fill out all fields');
       return;
     }
+
     // Dispatch the addReview action to Redux
-    dispatch(addReview({ id: Math.random().toString(36).substr(2, 9), rating, feedback }));
-    
+    const newReview: TReview = {
+      id: Math.random().toString(36).substr(2, 9),
+      rating,
+      feedback
+    };
+    dispatch(addReview(newReview));
+
     // Reset form after submission
     setRating(0);
     setFeedback('');
   };
 
   // Function to handle review deletion
-  const handleDeleteReview = (id) => {
+  const handleDeleteReview = (id: string) => {
     dispatch(deleteReview(id));
   };
 
@@ -112,7 +125,7 @@ const ReviewSection = () => {
 
         {/* Last Two User Reviews */}
         <div className="mt-4 space-y-4">
-          {reviews.slice(-2).map((review, index) => (
+          {reviews.slice(-2).map((review: TReview, index: number) => (
             <div key={index} className="p-4 bg-gray-50 rounded-md shadow-sm">
               <div className="flex justify-between">
                 <p className="font-medium">User {index + 1}</p>
@@ -124,9 +137,11 @@ const ReviewSection = () => {
                   ))}
                 </div>
                 <div>
-                <FaTrash size={15}
+                  <FaTrash
+                    size={15}
                     className="text-red-500 cursor-pointer"
-                    onClick={() => handleDeleteReview(review.id)} />
+                    onClick={() => handleDeleteReview(review.id)}
+                  />
                 </div>
               </div>
               <p className="text-gray-600 mt-2">{review.feedback}</p>
