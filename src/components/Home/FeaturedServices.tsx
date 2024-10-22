@@ -42,6 +42,17 @@ const FeaturedServices = () => {
         };
     }, [data]);
 
+    const handlePrev = () => {
+        sliderInstanceRef.current?.prev();
+    };
+
+    const handleNext = () => {
+        sliderInstanceRef.current?.next();
+    };
+
+    if (isLoading) return <LoadingSpinier />;
+    if (isError) return <p>Oops! Something went wrong!</p>
+
   return (
     <div>FeaturedServices</div>
   )
