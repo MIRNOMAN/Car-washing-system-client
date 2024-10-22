@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../redux/features/auth/authSlice";
+import reviewsReducer from "../redux/features/review/reviewsSlice"; 
 import { baseApi } from "./api/baseApi";
 import {
   persistStore,
@@ -24,6 +25,7 @@ export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistAuthReducer,
+    reviews: reviewsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
