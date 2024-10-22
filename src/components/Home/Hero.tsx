@@ -59,7 +59,7 @@ const Hero = () => {
 
                             <div className="mt-8 flex flex-wrap gap-4 text-center !justify-start md:justify-center">
 
-                                <Link to={`/services`} className="block w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
+                                <Link to={`/services`} className="block Montserrat w-full rounded bg-rose-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-rose-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto">
                                     Book Now
                                 </Link>
                             </div>

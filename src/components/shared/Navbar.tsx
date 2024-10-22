@@ -6,8 +6,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logout, useCurentUser } from '../../redux/features/auth/authSlice';
 const Navbar = () => {
     const [dropDownState, setDropDownState] = useState(false);
-    const url = window.location.href;
-    const currentRoute = url.split('/')[3];
+    // const url = window.location.href;
+    const currentRoute = window.location.pathname.split('/')[1];
     const user = useAppSelector(useCurentUser);
     const dispatch = useAppDispatch();
     // const { data: fullUser } = useGetFullUserQuery([{ email: user?.user }], { skip: !user });
