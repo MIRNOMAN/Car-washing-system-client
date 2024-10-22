@@ -30,6 +30,10 @@ const Hero = () => {
             With numerous pickup and drop-off points across the country, renting a car has never been easier, no matter where your journey takes you.<br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">Convenient Locations Nationwide</span>
         </h1>,
     ]
+    useEffect(() => {
+        const intervalId = setInterval(() => setCurrentSlider(currentSlider === sliders.length - 1 ? 0 : currentSlider + 1), 3000);
+        return () => clearInterval(intervalId);
+    }, [currentSlider, sliders.length]);
 
   return (
     <div>Hero</div>
