@@ -1,3 +1,4 @@
+import FeaturedServices from "../../components/Home/FeaturedServices"
 import Hero from "../../components/Home/Hero"
 import Footer from "../../components/shared/Footer"
 import Navbar from "../../components/shared/Navbar"
@@ -8,7 +9,7 @@ const Home = () => {
     <div>
        <Navbar />
        <Hero/>
-
+       <FeaturedServices/>
 
 
        <Footer/>
