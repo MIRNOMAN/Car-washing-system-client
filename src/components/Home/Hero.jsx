@@ -12,6 +12,25 @@ const Hero = () => {
 
     ];
 
+
+    const titles = [
+        <h1 className=" font- md:text-left text-white">
+            We offer the best rates in the market, ensuring you get the most value for your money with transparent pricing and no surprises.<br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">Unbeatable Prices, No Hidden Fees</span>
+        </h1>,
+        <h1 className=" font- md:text-left text-white">
+            Choose from a wide range of vehicles, from economy cars to luxury models, tailored to meet your specific needs and preferences. <br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">Extensive Fleet Selection</span>
+        </h1>,
+        <h1 className=" font- md:text-left text-white">
+            Our dedicated customer service team is available around the clock to assist you with any questions or issues, ensuring a smooth rental experience. <br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">24/7 Customer Support</span>
+        </h1>,
+        <h1 className=" font- md:text-left text-white">
+            We provide customizable rental options, whether you need a car for a few hours, days, or even weeks, giving you the flexibility to travel on your terms.<br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">Flexible Rental Plans</span>
+        </h1>,
+        <h1 className=" font- md:text-left text-white">
+            With numerous pickup and drop-off points across the country, renting a car has never been easier, no matter where your journey takes you.<br /> <span className="text-rose-600 text-2xl uppercase font-bold md:text-left  sm:text-5xl">Convenient Locations Nationwide</span>
+        </h1>,
+    ]
+
   return (
     <div>Hero</div>
   )
