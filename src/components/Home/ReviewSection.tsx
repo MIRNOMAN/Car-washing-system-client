@@ -1,138 +1,144 @@
 import { useState } from "react";
-
-// Define the Review type
-interface Review {
-  rating: number;
-  feedback: string;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { addReview, deleteReview } from "../../redux/features/review/reviewsSlice"; // Adjust the path as necessary
+import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
 
 const ReviewSection = () => {
-  // Define types for state
-  const [rating, setRating] = useState<number>(0);
-  const [feedback, setFeedback] = useState<string>('');
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // Simulating login state
+  const dispatch = useDispatch();
+  const reviews = useSelector((state) => state.reviews.reviews);
+  const averageRating = useSelector((state) => state.reviews.averageRating);
+
+  const [rating, setRating] = useState(0);
+  const [feedback, setFeedback] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulating login state
 
   // Function to handle star rating click
-  const handleStarClick = (star: number) => {
+  const handleStarClick = (star) => {
     setRating(star);
   };
 
   // Function to handle form submission
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (rating === 0 || feedback === '') {
       alert('Please fill out all fields');
       return;
     }
+    // Dispatch the addReview action to Redux
+    dispatch(addReview({ id: Math.random().toString(36).substr(2, 9), rating, feedback }));
     
-    // Construct the review object
-    const review: Review = { rating, feedback };
-
-    // Submit review logic (to API or state)
-    console.log('Submitted review:', review);
-
     // Reset form after submission
     setRating(0);
     setFeedback('');
   };
 
+  // Function to handle review deletion
+  const handleDeleteReview = (id) => {
+    dispatch(deleteReview(id));
+  };
+
   return (
-    <div>
-      <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md relative">
-        {/* Black Overlay with Login Button (Visible if user is not logged in) */}
-        {!isLoggedIn && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-md shadow-md">
-              <p className="text-gray-800 text-lg mb-4">Please log in to leave a review.</p>
+    <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md relative">
+      {/* Black Overlay with Login Button */}
+      {!isLoggedIn && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-8 rounded-md shadow-md">
+            <p className="text-gray-800 text-lg mb-4">Please log in to leave a review.</p>
+            <button
+              className="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600"
+              onClick={() => setIsLoggedIn(true)} // Simulate login
+            >
+              Login
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Review Section */}
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Leave a Review</h2>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Star Rating Component */}
+        <div>
+          <p className="text-lg font-medium text-gray-700 mb-2">Rate Us:</p>
+          <div className="flex space-x-2">
+            {[1, 2, 3, 4, 5].map((star) => (
               <button
-                className="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600"
-                onClick={() => setIsLoggedIn(true)} // Simulate login
+                key={star}
+                type="button"
+                onClick={() => handleStarClick(star)}
+                className={`w-8 h-8 ${star <= rating ? 'text-yellow-400' : 'text-gray-400'} hover:text-yellow-400`}
               >
-                Login
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Review Section */}
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">Leave a Review</h2>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Star Rating Component */}
-          <div>
-            <p className="text-lg font-medium text-gray-700 mb-2">Rate Us:</p>
-            <div className="flex space-x-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <button
-                  key={star}
-                  type="button"
-                  onClick={() => handleStarClick(star)}
-                  className={`w-8 h-8 ${star <= rating ? 'text-yellow-400' : 'text-gray-400'} hover:text-yellow-400`}
-                >
-                  <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1L12 2z" />
-                  </svg>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Text Area for Feedback */}
-          <div>
-            <textarea
-              className="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-              placeholder="Write your feedback here..."
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-            ></textarea>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md"
-          >
-            Submit Review
-          </button>
-        </form>
-
-        {/* Post-Submission Display (Static Content) */}
-        <div className="mt-10">
-          <h3 className="text-lg font-semibold mb-2">Overall Rating:</h3>
-          <div className="flex items-center space-x-2">
-            <p className="text-3xl font-bold">4.5</p>
-            <div className="flex">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <svg key={star} className="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1L12 2z" />
                 </svg>
-              ))}
-            </div>
+              </button>
+            ))}
           </div>
+        </div>
 
-          {/* Last Two User Reviews */}
-          <div className="mt-4 space-y-4">
-            <div className="p-4 bg-gray-50 rounded-md shadow-sm">
+        {/* Text Area for Feedback */}
+        <div>
+          <textarea
+            className="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            placeholder="Write your feedback here..."
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+          ></textarea>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md shadow-md"
+        >
+          Submit Review
+        </button>
+      </form>
+
+      {/* Post-Submission Display */}
+      <div className="mt-10">
+        <h3 className="text-lg font-semibold mb-2">Overall Rating:</h3>
+        <div className="flex items-center space-x-2">
+          <p className="text-3xl font-bold">{averageRating.toFixed(1)}</p>
+          <div className="flex">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <svg key={star} className="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1L12 2z" />
+              </svg>
+            ))}
+          </div>
+        </div>
+
+        {/* Last Two User Reviews */}
+        <div className="mt-4 space-y-4">
+          {reviews.slice(-2).map((review, index) => (
+            <div key={index} className="p-4 bg-gray-50 rounded-md shadow-sm">
               <div className="flex justify-between">
-                <p className="font-medium">John Doe</p>
+                <p className="font-medium">User {index + 1}</p>
                 <div className="flex">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                  {[...Array(review.rating)].map((_, starIndex) => (
+                    <svg key={starIndex} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
                       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1L12 2z" />
                     </svg>
                   ))}
                 </div>
+                <div>
+                <FaTrash size={15}
+                    className="text-red-500 cursor-pointer"
+                    onClick={() => handleDeleteReview(review.id)} />
+                </div>
               </div>
-              <p className="text-gray-600 mt-2">Great service! Highly recommended.</p>
+              <p className="text-gray-600 mt-2">{review.feedback}</p>
             </div>
-            {/* Second review can be added similarly */}
-          </div>
+          ))}
+        </div>
 
-          {/* See All Reviews Button */}
-          <div className="mt-6">
-            <a href="/reviews" className="inline-block bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600">
-              See All Reviews
-            </a>
-          </div>
+        {/* See All Reviews Button */}
+        <div className="mt-6">
+          <Link to="/reviews" className="inline-block bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600">
+            See All Reviews
+          </Link>
         </div>
       </div>
     </div>
