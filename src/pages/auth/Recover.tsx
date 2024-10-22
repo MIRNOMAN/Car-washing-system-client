@@ -73,29 +73,31 @@ const Recover: FC  = () => {
       const toastId = toast.loading('Sending Email...');
       const sixDigitCode = String(Math.floor(100000 + Math.random() * 900000))
       setVerificationCode(sixDigitCode);
-
-      // DONE: Email verification code to user for rest password
+    
+      // DONE: Email verification code to user for password reset
       const EMAIL_PARAMS: TAuthEmail = {
-          name: user?.name as string,
-          email: user?.email as string,
-          otp: sixDigitCode as string
+        name: user?.name as string,
+        email: user?.email as string,
+        otp: sixDigitCode
       }
-
+      console.log(EMAIL_PARAMS)
       try {
-          const res = await sendEmail(1, EMAIL_PARAMS);
-          if (res?.status == 200) {
-              toast.success('You have been emailed with a 6 digit code. If you do not find the email in your inbox, please check your spam or junk folder', { id: toastId });
-              setOpenModal(true);
-          }
+        const res = await sendEmail(1, EMAIL_PARAMS);
+        console.log("Email service response: ", res);  // Add this log to see the response
+        if (res?.status === 200) {
+          toast.success('Verification email sent. Check your inbox/spam folder.', { id: toastId });
+          setOpenModal(true);
+        } else {
+          throw new Error('Email service failed');
+        }
       } catch (error) {
-          toast.error('For an unknown reason we failed to send you the verification email. Please try again', {
-              id: toastId
-          })
-          setUser(null);
-          console.log(error);
+        console.error('Email sending error: ', error);  // Detailed error logging
+        toast.error('Failed to send verification email. Try again later.', {
+          id: toastId
+        });
+        setUser(null);
       }
-
-  }
+    }
 
   const onChange: OTPProps['onChange'] = (inputtedVerificationCode) => {
     setError(null);
@@ -128,7 +130,7 @@ const handleChangePassword = async (event: React.FormEvent<HTMLFormElement>) => 
       return;
   } else {
       // DONE: call the server to set new password;
-      const res = await axios.patch<{ success: boolean; message: string }>(`https://car-rental-reservation-system-nine.vercel.app/api/auth/user/recovery/passed`, {
+      const res = await axios.patch<{ success: boolean; message: string }>(`http://localhost:5000/api/auth/user/recovery/passed`, {
           token: user?.token,
           newPassword: password
       });
