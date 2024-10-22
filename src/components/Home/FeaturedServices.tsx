@@ -58,12 +58,13 @@ const FeaturedServices = () => {
             <div className="mx-auto max-w-[1340px] px-4 py-12 sm:px-6 lg:me-0 lg:py-16 lg:pe-0 lg:ps-8 xl:py-24">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:items-center lg:gap-16">
                     <div className="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
-                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                            Discover the Thrill Machines
-                        </h2>
-                        <p className="mt-4 text-gray-700">
-                            Feel the adrenaline with our sleek, high-powered vehicles, built for those who crave excitement.
-                        </p>
+                    <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    Experience a Sparkling Clean Ride
+                     </h2>
+                     <p className="mt-4 text-gray-700">
+                     Keep your vehicle shining like new with our premium car washing services, designed for those who appreciate quality and care.
+                    </p>
+
                         <div className="hidden lg:mt-8 lg:flex lg:gap-4">
                             <button
                                 aria-label="Previous slide"
@@ -115,22 +116,28 @@ const FeaturedServices = () => {
                                     <Link to={`/services/details/${service?._id}`}>
                                         <div key={indx} className="keen-slider__slide">
                                             <blockquote
-                                                className="flex h-full flex-col justify-between bg-white shadow-sm"
+                                                className="flex h-full flex-col justify-between shadow-sm"
                                             >
-                                                <div className="relative border flex flex-col md:flex-row bg-white ">
-                                                    <div className="w-full md:w-[50%] bg-white grid place-items-center">
-                                                        <img src={service?.photo} className="w-full h-full object-cover " />
-                                                    </div>
-                                                    <div className="w-full md:w-[50%] bg-white flex flex-col space-y-2 p-6">
+                                                    <div  className="relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                                        {/* Image */}
+                                                        <div>
+                                                            <img className="rounded-t-lg w-full h-48 object-cover" src={service?.photo} alt={service?.name} />
+                                                        </div>
 
-                                                        <h3 className="font-semibold text-gray-800 text-xl mt-1">{service?.name}</h3>
-                                                        <p className='md:block hidden'>{service?.description.slice(0, 100)}...</p>
-                                                        <p className='md:hidden'>{service.description.slice(0, 50)}...</p>
-                                                       
-                                                    </div>
-                                                </div>
+                                                        {/* Popularity Tag */}
+                                                        <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+                                                            Popular
+                                                        </span>
+
+                                                        {/* Description */}
+                                                        <div className="p-5 bg-rose-600 text-white">
+                                                            <p className="md:block hidden">{service?.description.slice(0, 100)}...</p>
+                                                            <p className="md:hidden">{service?.description.slice(0, 50)}...</p>
+                                                        </div>
+                                                        </div>
                                             </blockquote>
                                         </div>
+
                                     </Link>
                                 )
                             })}
