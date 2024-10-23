@@ -42,6 +42,6 @@ console.log(result)
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithAdditionalFeatures,
-    tagTypes: ['patchUser', 'patchUserRole','service',  'booking', ],
+    tagTypes: ['patchUser', 'patchUserRole','service', 'slot', 'booking', ],
     endpoints: () => ({})
 })
