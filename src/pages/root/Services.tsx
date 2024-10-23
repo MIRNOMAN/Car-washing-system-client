@@ -129,14 +129,15 @@ const Services = () => {
           </div>
 
           {/* Card */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
             {sortedServices.map((service, indx) => (
               <ServiceCard key={indx} service={service} />
             ))}
           </div>
         </div>
-        <Footer />
+        
       </div>
+      <Footer />
     </div>
   );
 };

@@ -7,8 +7,8 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   return (
-    <div className="max-w-sm mx-auto rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out">
-      <div className="bg-white p-5">
+    <div className=" rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out">
+      <div className="p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-md ">
         <h2 className="text-xl font-semibold mb-2">{service.name}</h2>
         <p className="text-gray-600 mb-4">{service.description}</p>
         <div className="flex justify-between items-center">
