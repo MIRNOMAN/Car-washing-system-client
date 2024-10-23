@@ -44,6 +44,22 @@ const fetchProducts = async (): Promise<void> => {
     }
 };
 
+
+const clearFilters = () => {
+  setSearchTerm('');
+  setLocation('');
+  setMinPrice('');
+  setMaxPrice('');
+  setSortOrder('asc');
+  setColor('');
+  fetchProducts();
+};
+
+useEffect(() => {
+  fetchProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [searchTerm, sortOrder, location, minPrice, maxPrice, color]);
+
   return (
     <div>Services</div>
   )
