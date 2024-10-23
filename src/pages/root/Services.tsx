@@ -15,6 +15,35 @@ const Services = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+
+
+  function handleSearch(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const value = (e.target as HTMLFormElement).search.value;
+    setSearchTerm(value);
+}
+
+const fetchProducts = async (): Promise<void> => {
+    try {
+        const response = await axios.get('https://car-rental-reservation-system-nine.vercel.app/api/cars', {
+            params: {
+                searchTerm,
+                location,
+                color,
+                minPrice,
+                maxPrice,
+                sortOrder,
+            },
+        });
+        setData(response.data.data);
+        setIsLoading(false)
+    } catch (error) {
+        setIsLoading(false);
+        setIsError(true);
+        console.log(error);
+    }
+};
+
   return (
     <div>Services</div>
   )
