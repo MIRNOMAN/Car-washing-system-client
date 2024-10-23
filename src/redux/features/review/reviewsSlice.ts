@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // Define the shape of the review
 export interface TReview {
-  id: string; // or number, depending on your ID type
+  id: string;
   rating: number;
   feedback: string;
 }
@@ -11,9 +11,11 @@ export interface TReview {
 const initialState: {
   reviews: TReview[];
   averageRating: number;
+  loading: boolean;
 } = {
   reviews: [],
   averageRating: 0,
+  loading: false,
 };
 
 const reviewsSlice = createSlice({
@@ -28,17 +30,35 @@ const reviewsSlice = createSlice({
       state.averageRating = totalRating / state.reviews.length;
     },
     deleteReview: (state, action: PayloadAction<string>) => {
-        const reviewId = action.payload;
-        // Filter out the review with the given ID
-        state.reviews = state.reviews.filter(review => review.id !== reviewId);
-        // Update the average rating after deletion
-        const totalRating = state.reviews.reduce((sum, review) => sum + review.rating, 0);
-        state.averageRating = state.reviews.length > 0 ? totalRating / state.reviews.length : 0;
-      },
-    // Optionally add other reducers for fetching or updating reviews
+      const reviewId = action.payload;
+      // Filter out the review with the given ID
+      state.reviews = state.reviews.filter((review) => review.id !== reviewId);
+      // Update the average rating after deletion
+      const totalRating = state.reviews.reduce((sum, review) => sum + review.rating, 0);
+      state.averageRating = state.reviews.length > 0 ? totalRating / state.reviews.length : 0;
+    },
+    fetchReviewsStart: (state) => {
+      state.loading = true;
+    },
+    fetchReviewsSuccess: (state, action: PayloadAction<TReview[]>) => {
+      state.reviews = action.payload;
+      state.loading = false;
+      // Recalculate average rating
+      const totalRating = state.reviews.reduce((sum, review) => sum + review.rating, 0);
+      state.averageRating = state.reviews.length > 0 ? totalRating / state.reviews.length : 0;
+    },
+    fetchReviewsFailure: (state) => {
+      state.loading = false;
+    },
   },
 });
 
 // Export actions and reducer
-export const { addReview,deleteReview } = reviewsSlice.actions;
+export const {
+  addReview,
+  deleteReview,
+  fetchReviewsStart,
+  fetchReviewsSuccess,
+  fetchReviewsFailure,
+} = reviewsSlice.actions;
 export default reviewsSlice.reducer;

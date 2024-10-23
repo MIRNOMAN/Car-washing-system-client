@@ -11,6 +11,7 @@ import ProfileSettings from "../pages/profile/ProfileSettings";
 import Payout from "../pages/root/payment/Payout";
 import Contact from "../pages/root/Contact";
 import Recover from "../pages/auth/Recover";
+import AllReviews from "../components/Home/AllReviews";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: '/booking', element: <Booking  /> },
       { path: '/services', element: <Services  /> },
       { path: '/contact', element: <Contact/> },
+      { path: '/reviews', element: <AllReviews/> },
       { path: '/services/details/:_id', element: <ServiceDetails /> },
       { path: '/auth/login', element: <Login /> },
       { path: '/auth/register', element: <Register /> },
