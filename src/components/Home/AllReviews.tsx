@@ -3,6 +3,7 @@ import { RootState } from '../../redux/store'; // Adjust this path
 import { deleteReview,  TReview } from '../../redux/features/review/reviewsSlice'; // Adjust the path as necessary
 import { FaTrash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
+import Navbar from '../shared/Navbar';
 
 
 const AllReviews = () => {
@@ -20,6 +21,8 @@ const AllReviews = () => {
   };
 
   return (
+    <div>
+        <Navbar/>
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-gray-800">All Reviews</h1>
 
@@ -59,6 +62,7 @@ const AllReviews = () => {
           ))}
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store"; // Adjust this path to your store location
-import { addReview, deleteReview, TReview } from "../../redux/features/review/reviewsSlice"; // Adjust the path as necessary
+import { RootState } from "../../redux/store"; 
+import { addReview, deleteReview, TReview } from "../../redux/features/review/reviewsSlice"; 
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
-import {  useCurentUser } from "../../redux/features/auth/authSlice"; // Assuming you have an auth state slice
+import {  useCurentUser } from "../../redux/features/auth/authSlice"; 
 import { useAppSelector } from "../../redux/hooks";
 
 
@@ -44,6 +44,8 @@ const ReviewSection = () => {
       feedback
     };
     await dispatch(addReview(newReview));
+
+    
 
     // Reset form after submission
     setRating(0);
