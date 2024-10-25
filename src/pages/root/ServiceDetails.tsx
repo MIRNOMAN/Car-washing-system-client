@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 import { TResponseSlot } from '../../types/response.slots.type';
 import Footer from '../../components/shared/Footer';
 import Navbar from '../../components/shared/Navbar';
+import { timeSlotsArry } from '../../constants/TimeSlots';
 
 const ServiceDetails = () => {
   const { _id } = useParams<{ _id: string  }>();
@@ -15,12 +16,12 @@ const ServiceDetails = () => {
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const { data: serviceData, isLoading: serviceLoading } = useGetSingleServicesQuery({ _id });
-  const { data: availableSlotsResponse, isLoading: slotsLoading } = useGetAvailableSlotsQuery(selectedDate);
+  
   const [createSlot] = useCreateSlotMutation(); // Use the mutation here
 
 
-  const slotsArray = availableSlotsResponse?.data || []; // Use data or fallback to an empty array
-  const selectedSlotData = slotsArray.find((slot: { startTime: string | null; }) => slot.startTime === selectedSlot);
+ // Use data or fallback to an empty array
+  const selectedSlotData = timeSlotsArry.find((slot: { startTime: string | null; }) => slot.startTime === selectedSlot);
 
   const handleSlotSelect = (slot: TResponseSlot) => {
     if (slot.isBooked === 'available') { // Only select if the slot is available
@@ -60,7 +61,7 @@ const ServiceDetails = () => {
   // Ensure we get the correct slots array from the response data
   
 
-  if (serviceLoading || slotsLoading) {
+  if (serviceLoading ) {
     return <p>Loading...</p>;
   }
 
@@ -92,8 +93,8 @@ const ServiceDetails = () => {
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Available Time Slots:</h3>
         <div className="grid grid-cols-4 gap-4">
-  {slotsArray.length > 0 ? (
-    slotsArray.map((slot: any) => (
+  {timeSlotsArry.length > 0 ? (
+    timeSlotsArry.map((slot: any) => (
       <div key={slot._id} className="flex flex-col items-center">
         <button
           className={`p-3 rounded-lg focus:outline-none focus:ring-2 ${
