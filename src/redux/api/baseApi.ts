@@ -19,7 +19,7 @@ const baseQuery = fetchBaseQuery({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const baseQueryWithAdditionalFeatures: BaseQueryFn<FetchArgs, BaseQueryApi, DefinitionType> = async (args, api, extraOptions): Promise<any> => {
     const result = await baseQuery(args, api, extraOptions);
-console.log(result)
+
     switch (result?.error?.status) {
         case 401:
             console.log('access token invalid or expired');
@@ -42,6 +42,6 @@ console.log(result)
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithAdditionalFeatures,
-    tagTypes: ['patchUser', 'patchUserRole','service', 'slot', 'booking', ],
+    tagTypes: ['service', 'slot', 'booking', ],
     endpoints: () => ({})
 })
