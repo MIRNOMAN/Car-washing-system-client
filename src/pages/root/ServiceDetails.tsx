@@ -8,14 +8,26 @@ import Navbar from '../../components/shared/Navbar';
 import { timeSlotsArry } from '../../constants/TimeSlots';
 
 const ServiceDetails = () => {
-  const { _id } = useParams<{ _id: string }>();
+  const { _id } = useParams<{ _id: string | undefined }>();
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]); // Default to today's date
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
-  const { data: serviceData, isLoading: serviceLoading } = useGetSingleServicesQuery({ _id });
+  const { data: serviceData, isLoading: serviceLoading } = useGetSingleServicesQuery({ _id: _id ?? ''  });
   const [createSlot, { isLoading: bookingLoading }] = useCreateSlotMutation();
 
   const selectedSlotData = timeSlotsArry.find(slot => slot.startTime === selectedSlot);
+
+
+  const mappedSlots = timeSlotsArry.map(slot => ({
+    ...slot,
+    service: _id ?? '',
+    date: selectedDate,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    __v: 0,
+  })) as TResponseSlot[];
+
+
 
   const handleSlotSelect = (slot: TResponseSlot) => {
     if (slot.isBooked === 'available') {
@@ -96,8 +108,8 @@ const ServiceDetails = () => {
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Available Time Slots:</h3>
           <div className="grid grid-cols-4 gap-4">
-            {timeSlotsArry.length > 0 ? (
-              timeSlotsArry.map(slot => (
+            {mappedSlots.length > 0 ? (
+              mappedSlots.map(slot => (
                 <div key={slot._id} className="flex flex-col items-center">
                   <button
                     className={`p-3 rounded-lg focus:outline-none focus:ring-2 ${
