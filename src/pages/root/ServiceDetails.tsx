@@ -11,14 +11,16 @@ const ServiceDetails = () => {
   const { _id } = useParams<{ _id: string | undefined }>();
   const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]); // Default to today's date
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+  
+  // State to manage time slots dynamically
+  const [timeSlots, setTimeSlots] = useState(timeSlotsArry);
 
-  const { data: serviceData, isLoading: serviceLoading } = useGetSingleServicesQuery({ _id: _id ?? ''  });
+  const { data: serviceData, isLoading: serviceLoading } = useGetSingleServicesQuery({ _id: _id ?? '' });
   const [createSlot, { isLoading: bookingLoading }] = useCreateSlotMutation();
 
-  const selectedSlotData = timeSlotsArry.find(slot => slot.startTime === selectedSlot);
+  const selectedSlotData = timeSlots.find(slot => slot.startTime === selectedSlot);
 
-
-  const mappedSlots = timeSlotsArry.map(slot => ({
+  const mappedSlots = timeSlots.map(slot => ({
     ...slot,
     service: _id ?? '',
     date: selectedDate,
@@ -26,8 +28,6 @@ const ServiceDetails = () => {
     updatedAt: new Date().toISOString(),
     __v: 0,
   })) as TResponseSlot[];
-
-
 
   const handleSlotSelect = (slot: TResponseSlot) => {
     if (slot.isBooked === 'available') {
@@ -52,12 +52,12 @@ const ServiceDetails = () => {
     }
 
     const slotData: TResponseSlot = {
-      _id: _id ?? "", // Providing fallback
+      _id: "", // Providing fallback
       service: _id ?? "",
       date: selectedDate,
       startTime: selectedSlot,
-      endTime: selectedSlotData?.endTime ?? "", // Providing fallback for potentially undefined field
-      isBooked: 'booked',
+      endTime: selectedSlotData?.endTime,
+      isBooked: 'booked', // Setting the slot as booked
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       __v: 0,
@@ -66,6 +66,12 @@ const ServiceDetails = () => {
     try {
       const res = await createSlot(slotData).unwrap();
       if (res?.success) {
+        // Update the local state to reflect that the slot is booked
+        setTimeSlots(prevSlots =>
+          prevSlots.map(slot =>
+            slot.startTime === selectedSlot ? { ...slot, isBooked: 'booked' } : slot
+          )
+        );
         toast.success('Slot booked successfully!');
       } else {
         throw new Error('Booking failed due to server error.');
@@ -83,9 +89,9 @@ const ServiceDetails = () => {
   return (
     <div>
       <Navbar />
-      <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <div className="max-w-4xl mt-5 mb-8 mx-auto p-6 bg-white rounded-lg shadow-lg">
         {/* Service Information */}
-        <div className="mb-8">
+        <div className="mb-8 ">
           <h2 className="text-2xl font-bold text-gray-900">{serviceData?.data?.name || 'Service Name'}</h2>
           <p className="text-gray-700 mt-2">{serviceData?.data?.description || 'Detailed description of the selected service goes here...'}</p>
           <p className="text-xl text-blue-600 font-semibold mt-4">Price: ${serviceData?.data?.price}</p>
