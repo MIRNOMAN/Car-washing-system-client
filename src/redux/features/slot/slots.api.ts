@@ -13,14 +13,14 @@ const slotsApi = baseApi.injectEndpoints({
         }),
 
         // Create a new slot
-        createSlot: builder.mutation({
-            query: (slotData) => ({
-                url: '/slots',
-                method: 'POST',
-                body: slotData,
-            }),
-            invalidatesTags: ['slot'],
-        }),
+        // createSlot: builder.mutation({
+        //     query: (slotData) => ({
+        //         url: '/services/slots',
+        //         method: 'POST',
+        //         body: slotData,
+        //     }),
+        //     invalidatesTags: ['slot'],
+        // }),
 
         // Delete a slot
         deleteSlot: builder.mutation({
@@ -35,6 +35,5 @@ const slotsApi = baseApi.injectEndpoints({
 
 export const {
     useGetAvailableSlotsQuery,
-    useCreateSlotMutation,
-    useDeleteSlotMutation,
+     useDeleteSlotMutation,
 } = slotsApi;

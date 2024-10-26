@@ -12,10 +12,21 @@ const servicesApi = baseApi.injectEndpoints({
 
         getSingleServices: builder.query({
             query: (args: { _id: string }) => ({
-                url: `services/${args._id}`,
+                url: `/services/${args._id}`,
                 method: 'GET',
             }),
             providesTags: ['service']
+        }),
+
+        
+        // Create a new slot
+        createSlot: builder.mutation({
+            query: (slotData) => ({
+                url: '/services/slots',
+                method: 'POST',
+                body: slotData,
+            }),
+            invalidatesTags: ['slot','service'],
         }),
 
         // createVehicle: builder.mutation({
@@ -58,4 +69,5 @@ const servicesApi = baseApi.injectEndpoints({
 export const {
  useGetServicesQuery,
   useGetSingleServicesQuery,
+  useCreateSlotMutation,
 } = servicesApi
