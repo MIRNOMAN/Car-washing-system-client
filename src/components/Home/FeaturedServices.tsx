@@ -4,13 +4,14 @@ import 'keen-slider/keen-slider.min.css';
 import LoadingSpinier from '../global/LoadingSpinier';
 import { Link } from 'react-router-dom';
 import { TServiceResponse } from '../../types/response.services.type';
-import { useGetServicesQuery } from '../../redux/features/services/services.api';
+import { useGetAllServicesQuery } from '../../redux/features/services/services.api';
+
 
 
 const FeaturedServices = () => {
     const sliderRef = useRef<HTMLDivElement | null>(null);
     const sliderInstanceRef = useRef<KeenSliderInstance | null>(null);
-    const { isError, isLoading, data } = useGetServicesQuery(undefined);
+    const { isError, isLoading, data } = useGetAllServicesQuery(undefined);
 
     useEffect(() => {
         if (sliderRef.current) {

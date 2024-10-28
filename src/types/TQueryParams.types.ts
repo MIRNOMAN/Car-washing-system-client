@@ -1,4 +1,4 @@
 export type TQueryParams = {
     name: string;
-    value: string;
+    value: boolean | React.Key;
 }

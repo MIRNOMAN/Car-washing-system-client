@@ -3,13 +3,23 @@ import { baseApi } from "../../api/baseApi";
 
 const servicesApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        createService: builder.mutation({
+            query: (serviceInfo) => {
+              return {
+                url: "/services",
+                method: "POST",
+                body: serviceInfo,
+              };
+            },
+            invalidatesTags: ["service"],
+          }),
         getAllServices: builder.query({
             query: (args) => {
                 const params = new URLSearchParams();
-                if (args) {
-                  args.forEach((item: TQueryParams) => {
-                    params.append(item.name, item.value as string);
-                  });
+                if (Array.isArray(args)) {
+                    args.forEach((item: TQueryParams) => {
+                        params.append(item.name, item.value as string);
+                    });
                 }
                 return {
                   url: `/services`,
@@ -66,6 +76,7 @@ const servicesApi = baseApi.injectEndpoints({
 })
 
 export const {
+    useCreateServiceMutation,
     useGetAllServicesQuery,
   useGetSingleServicesQuery,
   useCreateSlotMutation,

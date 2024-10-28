@@ -3,14 +3,14 @@ import Footer from "../../components/shared/Footer";
 import Navbar from "../../components/shared/Navbar";
 import { FormEvent, useState } from "react";
 import { TServiceResponse } from "../../types/response.services.type";
-import { useGetServicesQuery } from "../../redux/features/services/services.api";
 import ServiceCard from "../../components/Card/ServiceCard";
+import { useGetAllServicesQuery } from "../../redux/features/services/services.api";
 
 const Services = () => {
   const [priceRange, setPriceRange] = useState<number[]>([10, 500]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("ascending");
-  const { data: product, error, isLoading } = useGetServicesQuery({});
+  const { data: product, error, isLoading } = useGetAllServicesQuery({});
   const services: TServiceResponse[] = product?.data || [];
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
