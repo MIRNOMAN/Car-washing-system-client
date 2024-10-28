@@ -7,3 +7,6 @@ export type TServiceResponse = {
     duration: number; // Duration in minutes
     isDeleted: boolean;
   };
+
+
+  

@@ -1,11 +1,13 @@
+import { TServiceResponse } from "./response.services.type";
+
 export type TResponseSlot = {
-  _id: string | number;
-  service: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  isBooked: 'available' | 'booked' | 'canceled';
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
+  serviceId: TServiceResponse;
+    date: string;
+    startTime: string;
+    endTime: string;
+    isBooked: "available" | "booked" | "canceled";
+    _id?: string;
   };
+
+
+ 
