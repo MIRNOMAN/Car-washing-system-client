@@ -1,43 +1,59 @@
-// slotsApi.js
+import { TQueryParams } from "../../../types/TQueryParams.types";
 import { baseApi } from "../../api/baseApi";
 
-const slotsApi = baseApi.injectEndpoints({
-    endpoints: (builder) => ({
-        // Fetch available slots
-        getAvailableSlots: builder.query({
-            query: ({ date, serviceId }) => ({
-                url: '/slots/availability',
-                method: 'GET',
-                params: {
-                    date,      
-                    serviceId  
-                },
-            }),
-            providesTags: ['slot'],
-        }),
 
-        // Create a new slot
-        // createSlot: builder.mutation({
-        //     query: (slotData) => ({
-        //         url: '/services/slots',
-        //         method: 'POST',
-        //         body: slotData,
-        //     }),
-        //     invalidatesTags: ['slot'],
-        // }),
-
-        // Delete a slot
-        deleteSlot: builder.mutation({
-            query: (slotId) => ({
-                url: `/slots/${slotId}`,
-                method: 'DELETE',
-            }),
-            invalidatesTags: ['slot'],
-        }),
+const slotApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    createSlot: builder.mutation({
+      query: (slotInfo) => {
+        return {
+          url: "/slots/create-slot",
+          method: "POST",
+          body: slotInfo,
+        };
+      },
     }),
+    getAllAvailableSlots: builder.query({
+      query: (args) => {
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((item: TQueryParams) => {
+            params.append(item.name, item.value as string);
+          });
+        }
+        return {
+          url: "/slots",
+          method: "GET",
+          params: params,
+        };
+      },
+    }),
+    getSingleSlot: builder.query({
+      query: (id) => {
+        return {
+          url: `/slots/${id}`,
+          method: "GET",
+        };
+      },
+    }),
+    updateSlot: builder.mutation({
+      query: (payload) => {
+        const { _id, ...newStatus } = payload;
+        // console.log(payload, "slot payload");
+        // console.log(_id);
+        return {
+          url: `/slots/${_id}`,
+          method: "PATCH",
+          body: newStatus,
+        };
+      },
+    }),
+  }),
 });
 
 export const {
-    useGetAvailableSlotsQuery,
-     useDeleteSlotMutation,
-} = slotsApi;
+  useCreateSlotMutation,
+  useGetAllAvailableSlotsQuery,
+  useUpdateSlotMutation,
+  useGetSingleSlotQuery,
+} = slotApi;
