@@ -5,9 +5,13 @@ const slotsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         // Fetch available slots
         getAvailableSlots: builder.query({
-            query: () => ({
+            query: ({ date, serviceId }) => ({
                 url: '/slots/availability',
                 method: 'GET',
+                params: {
+                    date,      
+                    serviceId  
+                },
             }),
             providesTags: ['slot'],
         }),

@@ -1,13 +1,23 @@
+import { TQueryParams } from "../../../types/TQueryParams.types";
 import { baseApi } from "../../api/baseApi";
 
 const servicesApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        getServices: builder.query({
-            query: () => ({
-                url: '/services',
-                method: 'GET',
-            }),
-            providesTags: ['service']
+        getAllServices: builder.query({
+            query: (args) => {
+                const params = new URLSearchParams();
+                if (args) {
+                  args.forEach((item: TQueryParams) => {
+                    params.append(item.name, item.value as string);
+                  });
+                }
+                return {
+                  url: `/services`,
+                  method: "GET",
+                  params: params,
+                };
+              },
+              providesTags: ["service"],
         }),
 
         getSingleServices: builder.query({
@@ -29,45 +39,36 @@ const servicesApi = baseApi.injectEndpoints({
             invalidatesTags: ['slot','service'],
         }),
 
-        // createVehicle: builder.mutation({
-        //     query: (arg) => ({
-        //         url: '/cars',
-        //         method: 'POST',
-        //         body: arg.payload
-        //     }),
-        //     invalidatesTags: ['vehicle', 'statistics']
-        // }),
+        deleteService: builder.mutation({
+            query: (id) => {
+              // console.log(id);
+              return {
+                url: `/services/${id}`,
+                method: "DELETE",
+              };
+            },
+            invalidatesTags: ["service"],
+          }),
 
-        // patchVehicle: builder.mutation({
-        //     query: (args) => ({
-        //         url: `/cars/${args?._id}`,
-        //         method: 'PUT',
-        //         body: args.payload,
-        //     }),
-        //     invalidatesTags: ['vehicle']
-        // }),
-
-        // deleteVehicle: builder.mutation({
-        //     query: (args) => ({
-        //         url: `/cars/${args?.id}`,
-        //         method: 'DELETE'
-        //     }),
-        //     invalidatesTags: ['vehicle', 'statistics']
-        // }),
-
-        // returnVehicle: builder.mutation({
-        //     query: (args: { payload: { bookingId: string; endTime: string } }) => ({
-        //         url: `/cars/return`,
-        //         method: 'PUT',
-        //         body: args.payload
-        //     }),
-        //     invalidatesTags: ['vehicle', 'booking', 'statistics']
-        // })
+          updateService: builder.mutation({
+            query: (payload) => {
+              const { _id, ...data } = payload;
+              // console.log(_id);
+              return {
+                url: `/services/${_id}`,
+                method: "PATCH",
+                body: data,
+              };
+            },
+            invalidatesTags: ["service"],
+          }),
     })
 })
 
 export const {
- useGetServicesQuery,
+    useGetAllServicesQuery,
   useGetSingleServicesQuery,
   useCreateSlotMutation,
+  useDeleteServiceMutation,
+  useUpdateServiceMutation,
 } = servicesApi
