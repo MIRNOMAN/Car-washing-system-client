@@ -1,17 +1,69 @@
+import fImg1 from "../../assets/feature/f1.jpg";
+import fImg2 from "../../assets/feature/f2.jpg";
+import fImg3 from "../../assets/feature/f3.jpg";
+import fImg4 from "../../assets/feature/f4.jpg";
+import fImg5 from "../../assets/feature/f5.jpg";
+import fImg6 from "../../assets/feature/f6.jpg";
 import  { useEffect, useRef } from 'react';
 import KeenSlider, { KeenSliderInstance } from 'keen-slider';
 import 'keen-slider/keen-slider.min.css';
-import LoadingSpinier from '../global/LoadingSpinier';
 import { Link } from 'react-router-dom';
-import { TServiceResponse } from '../../types/response.services.type';
-import { useGetAllServicesQuery } from '../../redux/features/services/services.api';
 
 
+const featuredServices = [
+    {
+      name: "Premium Car Wash",
+      description: "Get your car sparkling clean with our premium wash service.",
+      image: fImg1,
+      price: 30,
+      duration: 45, // duration in minutes
+    },
+    {
+      name: "Interior Detailing",
+      description:
+        "Deep cleaning of your car’s interior for a fresh and clean look.",
+      image: fImg2,
+      price: 50,
+      duration: 60,
+    },
+    {
+      name: "Express Wash",
+      description: "Quick and thorough wash for those on the go.",
+      image: fImg3,
+      price: 15,
+      duration: 20,
+    },
+    {
+      name: "Tire & Wheel Cleaning",
+      description:
+        "Specialized cleaning for tires and wheels to make them shine.",
+      image: fImg4,
+      price: 20,
+      duration: 30,
+    },
+    {
+      name: "Full Service Detailing",
+      description:
+        "Comprehensive detailing service covering both interior and exterior.",
+      image: fImg5,
+      price: 100,
+      duration: 120,
+    },
+    {
+      name: "Engine Cleaning",
+      description:
+        "Thorough cleaning of your car’s engine for better performance.",
+      image: fImg6,
+      price: 70,
+      duration: 75,
+    },
+  ];
+  
 
 const FeaturedServices = () => {
     const sliderRef = useRef<HTMLDivElement | null>(null);
     const sliderInstanceRef = useRef<KeenSliderInstance | null>(null);
-    const { isError, isLoading, data } = useGetAllServicesQuery(undefined);
+
 
     useEffect(() => {
         if (sliderRef.current) {
@@ -41,7 +93,7 @@ const FeaturedServices = () => {
         return () => {
             sliderInstanceRef.current?.destroy();
         };
-    }, [data]);
+    }, []);
 
     const handlePrev = () => {
         sliderInstanceRef.current?.prev();
@@ -51,8 +103,6 @@ const FeaturedServices = () => {
         sliderInstanceRef.current?.next();
     };
 
-    if (isLoading) return <LoadingSpinier />;
-    if (isError) return <p>Oops! Something went wrong!</p>
 
   return (
     <section className="">
@@ -112,7 +162,7 @@ const FeaturedServices = () => {
                     <div data-aos='fade-left' className="-mx-6 lg:col-span-2 lg:mx-0">
                         <div ref={sliderRef} className="keen-slider">
 
-                            {data?.data?.slice(2, 5).map((service: TServiceResponse, indx: number) => {
+                            {featuredServices?.slice(2, 5).map((service, indx: number) => {
                                 return (
                                     <Link to={`/services/details/${service?._id}`} key={service._id}>
                                         <div key={indx} className="keen-slider__slide">
@@ -122,7 +172,7 @@ const FeaturedServices = () => {
                                                     <div  className="relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                                         {/* Image */}
                                                         <div>
-                                                            <img className="rounded-t-lg w-full h-48 object-cover" src={service?.photo} alt={service?.name} />
+                                                            <img className="rounded-t-lg w-full h-48 object-cover" src={service.image} alt={service?.name} />
                                                         </div>
 
                                                         {/* Popularity Tag */}
