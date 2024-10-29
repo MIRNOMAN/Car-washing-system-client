@@ -2,13 +2,13 @@ import { useState } from 'react';
 import Headroom from 'react-headroom';
 import { NavLink, Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { logout, useCurentUser } from '../../redux/features/auth/authSlice';
+import { logout, useCurrentUser } from '../../redux/features/auth/authSlice';
 
 const Navbar = () => {
   const [dropDownState, setDropDownState] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const currentRoute = window.location.pathname.split('/')[1];
-  const user = useAppSelector(useCurentUser);
+  const user = useAppSelector(useCurrentUser);
   const dispatch = useAppDispatch();
 
   return (

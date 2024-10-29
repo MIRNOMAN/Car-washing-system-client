@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store"; 
-import { addReview, deleteReview, TReview } from "../../redux/features/review/reviewsApi"; 
+
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
-import {  useCurentUser } from "../../redux/features/auth/authSlice"; 
+import {  useCurrentUser } from "../../redux/features/auth/authSlice"; 
 import { useAppSelector } from "../../redux/hooks";
 
 
@@ -19,7 +19,7 @@ const ReviewSection = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   // Get the user's login state from Redux (you can adjust this based on your authentication flow)
-  const  user  = useAppSelector(useCurentUser);
+  const  user  = useAppSelector(useCurrentUser);
 
 
   // Function to handle star rating click
