@@ -5,7 +5,7 @@ import Reviews from "../pages/Reviews";
 import Home from "../pages/root/Home";
 import ServiceDetails from "../pages/root/ServiceDetails";
 import Services from "../pages/root/Services";
-import ServiceCompare from "../pages/ServiceCompare";
+
 
 
 export const pageRoutes = [
@@ -20,10 +20,6 @@ export const pageRoutes = [
       {
         path: "services",
         element: <Services />,
-      },
-      {
-        path: "services-compare",
-        element: <ServiceCompare />,
       },
       {
         path: "reviews",

@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store"; 
+import { useDispatch } from "react-redux";
+
 
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import {  useCurrentUser } from "../../redux/features/auth/authSlice"; 
 import { useAppSelector } from "../../redux/hooks";
+import { TReview } from "../../types/redux.type";
 
 
 const ReviewSection = () => {
   const dispatch = useDispatch();
-  const reviews: TReview[] = useSelector((state: RootState) => state.reviews.reviews);
-  const averageRating = useSelector((state: RootState) => state.reviews.averageRating);
+ 
+ 
 
   const [rating, setRating] = useState<number>(0);
   const [feedback, setFeedback] = useState<string>('');
@@ -43,7 +44,7 @@ const ReviewSection = () => {
       rating,
       feedback
     };
-    await dispatch(addReview(newReview));
+    // await dispatch(addReview(newReview));
 
     
 
@@ -56,14 +57,14 @@ const ReviewSection = () => {
   // Function to handle review deletion
   const handleDeleteReview = async (id: string) => {
     setLoading(true); 
-    await dispatch(deleteReview(id)); 
+    // await dispatch(deleteReview(id)); 
     setLoading(false); 
   };
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-md relative">
       {/* Black Overlay with Login Button */}
-      {!user && (
+      {/* {!user && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 rounded-md shadow-md">
             <p className="text-gray-800 text-lg mb-4">Please log in to leave a review.</p>
@@ -74,7 +75,7 @@ const ReviewSection = () => {
             </Link>
           </div>
         </div>
-      )}
+      )} */}
 
       {user && (
         <>
@@ -124,7 +125,7 @@ const ReviewSection = () => {
           <div className="mt-10">
             <h3 className="text-lg font-semibold mb-2">Overall Rating:</h3>
             <div className="flex items-center space-x-2">
-              <p className="text-3xl font-bold">{averageRating.toFixed(1)}</p>
+              {/* <p className="text-3xl font-bold">{averageRating.toFixed(1)}</p> */}
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <svg key={star} className="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24">
@@ -136,7 +137,7 @@ const ReviewSection = () => {
 
             {/* Last Two User Reviews */}
             <div className="mt-4 space-y-4">
-              {reviews.slice(-2).map((review: TReview, index: number) => (
+              {/* {reviews.slice(-2).map((review: TReview, index: number) => (
                 <div key={index} className="p-4 bg-gray-50 rounded-md shadow-sm">
                   <div className="flex justify-between">
                     <p className="font-medium">User {index + 1}</p>
@@ -157,7 +158,7 @@ const ReviewSection = () => {
                   </div>
                   <p className="text-gray-600 mt-2">{review.feedback}</p>
                 </div>
-              ))}
+              ))} */}
             </div>
 
             {/* See All Reviews Button */}

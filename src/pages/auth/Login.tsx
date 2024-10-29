@@ -1,14 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import Navbar from "../../components/shared/Navbar"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { useLoginUserMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/hooks";
 import toast from "react-hot-toast";
-import { setUser } from "../../redux/features/auth/authSlice";
+import { setUser, TUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { TUser } from "../../types/user.auth.interface";
+
 
 
 const Login = () => {
@@ -39,12 +38,7 @@ const Login = () => {
             }));
 
             if (redirect) {
-                navigate(`/services/details/${redirect}`);
-            } else if (location?.state) {
-                navigate(location.state);
-            } else {
-                // console.log(serverResponse?.data?.data?.role);
-                navigate(`/dashboard/${serverResponse?.data?.data?.role}/overview`)
+                navigate(`/`);
             }
             toast.success('Logged in Success', { id: toastId });
         }
@@ -56,8 +50,8 @@ const Login = () => {
 }
   return (
     <div>
-            <Navbar />
-            <section data-aos='zoom-out' className="mt-5">
+         
+            <section data-aos='zoom-out' className="mt-5 mb-5">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <h2 className="text-3xl font-bold mb-5">Quick<span className='text-rose-600'>Wash</span></h2>
                     <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
@@ -90,7 +84,7 @@ const Login = () => {
                                 </div>
                                 <button type="submit" className="w-full text-white bg-rose-600 hover:bg-rose-700  font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Sign in</button>
                                 <p className="text-sm font-light text-gray-500">
-                                    Don’t have an account yet? <Link to={'/auth/register'} className="font-medium text-primary-600 hover:underline">Sign up</Link>
+                                    Don’t have an account yet? <Link to={'/register'} className="font-medium text-primary-600 hover:underline">Sign up</Link>
                                 </p>
                             </form>
                         </div>

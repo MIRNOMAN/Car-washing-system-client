@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useGetSingleServicesQuery } from '../../redux/features/services/services.api';
-import { useGetAllAvailableSlotsQuery } from '../../redux/features/slot/slots.api';
-import { TResponseSlot } from '../../types/response.slots.type';
+// import { useGetSingleServicesQuery } from '../../redux/features/services/services.api';
+// import { useGetAllAvailableSlotsQuery } from '../../redux/features/slot/slots.api';
+// import { TResponseSlot } from '../../types/response.slots.type';
 import Footer from '../../components/shared/Footer';
 import Navbar from '../../components/shared/Navbar';
-import { dateFormatter } from '../../utils/dateFormatter';
+// import { dateFormatter } from '../../utils/dateFormatter';
 import { Button } from 'antd';
 import { useAppSelector } from '../../redux/hooks';
-import { useCurentUser } from '../../redux/features/auth/authSlice';
+// import { useCurentUser } from '../../redux/features/auth/authSlice';
 import LoadingSpinier from '../../components/global/LoadingSpinier';
 
 

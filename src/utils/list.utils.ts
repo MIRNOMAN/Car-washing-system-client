@@ -31,10 +31,6 @@ export const minDurationOptions = [
       name: "Services",
     },
     {
-      path: "/services-compare",
-      name: "Compare",
-    },
-    {
       path: "/reviews",
       name: "Reviews",
     },
