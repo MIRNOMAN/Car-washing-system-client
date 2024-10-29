@@ -33,10 +33,10 @@ const Register = () => {
 
     const { password2, ...dataWithoutConfirmPassword } = data;
     const dataForBackend = { ...dataWithoutConfirmPassword, role: "user" };
-
+   
     try {
       const serverResponse = await createUser(dataForBackend).unwrap();
-
+   
       if (serverResponse?.success) {
         toast.success("Registration Successful! Please login.", { id: toastId });
         reset();
@@ -102,6 +102,19 @@ const Register = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                     placeholder="Ex: 01700000000"
                     {...register("phone")}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    id="address"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                    placeholder="Ex: Address..."
+                    required
+                    {...register("address")}
                   />
                 </div>
                 <div>

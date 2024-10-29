@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store"; 
-import { addReview, deleteReview, TReview } from "../../redux/features/review/reviewsSlice"; 
+import { addReview, deleteReview, TReview } from "../../redux/features/review/reviewsApi"; 
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";

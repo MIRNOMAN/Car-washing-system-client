@@ -114,7 +114,7 @@ const FeaturedServices = () => {
 
                             {data?.data?.slice(2, 5).map((service: TServiceResponse, indx: number) => {
                                 return (
-                                    <Link to={`/services/details/${service?._id}`}>
+                                    <Link to={`/services/details/${service?._id}`} key={service._id}>
                                         <div key={indx} className="keen-slider__slide">
                                             <blockquote
                                                 className="flex h-full flex-col justify-between shadow-sm"

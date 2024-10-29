@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'; // Use typed hooks
 import { RootState } from '../../redux/store'; // Adjust this path
-import { deleteReview,  TReview } from '../../redux/features/review/reviewsSlice'; // Adjust the path as necessary
+import { deleteReview,  TReview } from '../../redux/features/review/reviewsApi'; // Adjust the path as necessary
 import { FaTrash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import Navbar from '../shared/Navbar';

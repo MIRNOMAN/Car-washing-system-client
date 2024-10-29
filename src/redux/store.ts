@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../redux/features/auth/authSlice";
-import reviewsReducer from "../redux/features/review/reviewsSlice"; 
-import { baseApi } from "./api/baseApi";
+import baseApi from "./api/baseAPi.ts";
+import authReducer from "./features/auth/authSlice.ts";
 import {
-  persistStore,
   persistReducer,
+  persistStore,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -12,20 +11,22 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+
 import storage from "redux-persist/lib/storage";
+import serviceComparisonReducer from "../redux/features/services/serviceComparisonSlice.ts";
 
 const persistConfig = {
   key: "auth",
   storage,
 };
 
-const persistAuthReducer = persistReducer(persistConfig, authReducer);
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
-    auth: persistAuthReducer,
-    reviews: reviewsReducer,
+    auth: persistedAuthReducer,
+    serviceComparison: serviceComparisonReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -39,5 +40,4 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
-
 export const persistor = persistStore(store);
