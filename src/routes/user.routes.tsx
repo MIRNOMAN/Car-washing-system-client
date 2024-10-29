@@ -1,6 +1,7 @@
-import PastBookings from "@/pages/dashboard/user/PastBookings";
-import Profile from "@/pages/dashboard/user/Profile";
-import UpcomingBookings from "@/pages/dashboard/user/UpcomingBookings";
+import PastBookings from "../pages/dashboard/user/PastBookings";
+import Profile from "../pages/dashboard/user/Profile";
+import UpcomingBookings from "../pages/dashboard/user/UpcomingBookings";
+
 
 export const userRoutes = [
   {

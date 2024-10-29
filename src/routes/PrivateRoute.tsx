@@ -3,9 +3,9 @@ import {
     TUser,
     useCurrentToken,
     useCurrentUser,
-  } from "@/redux/features/auth/authSlice";
-  import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-  import { isTokenExpired } from "@/utils/verifyToken";
+  } from "../redux/features/auth/authSlice";
+  import { useAppDispatch, useAppSelector } from "../redux/hooks";
+  import { isTokenExpired } from "../utils/verifyToken";
   import { ReactNode } from "react";
   import { Navigate, useLocation } from "react-router-dom";
   import { toast } from "sonner";

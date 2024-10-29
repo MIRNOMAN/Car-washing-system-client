@@ -1,11 +1,12 @@
-import Home from "@/pages/home/Home";
-import Details from "@/pages/details/Details";
-import SignIn from "@/pages/SignIn";
-import SignUp from "@/pages/SignUp";
-import Reviews from "@/pages/Reviews";
-import Service from "@/pages/service/Service";
-import Book from "@/pages/book/Book";
-import ServiceCompare from "@/pages/ServiceCompare";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import Book from "../pages/book/Book";
+import Reviews from "../pages/Reviews";
+import Home from "../pages/root/Home";
+import ServiceDetails from "../pages/root/ServiceDetails";
+import Services from "../pages/root/Services";
+import ServiceCompare from "../pages/ServiceCompare";
+
 
 export const pageRoutes = [
   {
@@ -14,11 +15,11 @@ export const pageRoutes = [
     children: [
       {
         path: "/service-details/:id",
-        element: <Details />,
+        element: <ServiceDetails />,
       },
       {
         path: "services",
-        element: <Service />,
+        element: <Services />,
       },
       {
         path: "services-compare",
@@ -33,12 +34,12 @@ export const pageRoutes = [
         element: <Book />,
       },
       {
-        path: "sign-in",
-        element: <SignIn />,
+        path: "login",
+        element: <Login/>,
       },
       {
-        path: "sign-up",
-        element: <SignUp />,
+        path: "register",
+        element: <Register />,
       },
     ],
   },
