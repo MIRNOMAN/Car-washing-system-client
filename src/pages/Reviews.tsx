@@ -9,6 +9,12 @@ import { TReview } from "@/types";
 
 
 const Reviews = () => {
+  const { data, isLoading } = useGetAllRatingsQuery(undefined);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   
   return (
     <div>Reviews</div>
