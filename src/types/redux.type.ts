@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface TErrorMessage {
     path: string;
     message: string;
@@ -6,6 +7,7 @@ export interface TErrorMessage {
   export interface TErrorResponse {
     status: number;
     data: {
+      errorSources: any;
       success: boolean;
       message: string;
       errorMessages: TErrorMessage[];

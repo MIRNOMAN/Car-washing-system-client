@@ -20,14 +20,14 @@ const Reviews = () => {
 
 
   return (
-    <div className="container lg:py-[50px]">
+    <div className="container lg:py-[30px]">
       <div className="text-center my-8">
   <h2 className="text-3xl font-bold text-gray-800">Customer Reviews</h2>
   <p className="text-lg text-gray-600 mt-2">
     Discover the experiences of those who have chosen our services
   </p>
 </div>
-      <div>
+      <div className="mx-10">
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
           {data?.data?.result?.map((item: TReview) => {
             return (
