@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { TUser, useCurrentUser } from "../../redux/features/auth/authSlice"; 
 import { useAppSelector } from "../../redux/hooks";
-import { TErrorResponse } from "../../types/redux.type";
+import { TErrorResponse, TReview } from "../../types/redux.type";
 import { useCreateReviewMutation, useGetLatestTwoRatingsQuery } from "../../redux/features/review/reviewsApi";
 import LoadingSpinier from "../global/LoadingSpinier";
 import { useState } from "react"; // Import useState
@@ -21,7 +21,7 @@ const initialValues: TInitialValues = {
 const ReviewSection = () => {
   const { data, isLoading } = useGetLatestTwoRatingsQuery(undefined);
   const user = useAppSelector(useCurrentUser) as TUser;
-  console.log(data?.result)
+  console.log(data?.data?.result)
   const [reviewInfo, { isLoading: loading }] = useCreateReviewMutation();
   const [feedback, setFeedback] = useState(initialValues.feedback);
   const [rating, setRating] = useState(initialValues.rating);
@@ -125,7 +125,11 @@ const ReviewSection = () => {
           <div className="mt-10">
             <h3 className="text-lg font-semibold mb-2">Overall Rating:</h3>
             <div className="flex items-center space-x-2">
-              <p className="text-3xl font-bold">{data?.averageRating?.toFixed(1) || "N/A"}</p>
+            <p className="text-3xl font-bold">
+  {Array.isArray(data?.data?.result) && data.data.result.length > 0 
+    ? (data.data.result.reduce((sum : number, review: TReview) => sum + review.rating, 0) / data.data.result.length).toFixed(1) 
+    : "N/A"}
+</p>
               <div className="flex">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <svg key={star} className="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 24 24">
@@ -136,7 +140,7 @@ const ReviewSection = () => {
             </div>
 
             <div className="mt-4 space-y-4">
-            {data?.data?.result?.map((review, index) => (
+            {data?.data?.result?.map((review : TReview, index : string) => (
         <div key={review._id} className="p-4 bg-gray-50 rounded-md shadow-sm mb-4">
           <div className="flex justify-between">
             <p className="font-medium">{review.name || `User ${index + 1}`}</p>
