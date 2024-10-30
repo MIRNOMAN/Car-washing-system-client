@@ -7,7 +7,7 @@ import fImg6 from "../../assets/feature/f6.jpg";
 import  { useEffect, useRef } from 'react';
 import KeenSlider, { KeenSliderInstance } from 'keen-slider';
 import 'keen-slider/keen-slider.min.css';
-import { Link } from 'react-router-dom';
+
 
 
 const featuredServices = [
@@ -164,7 +164,7 @@ const FeaturedServices = () => {
 
                             {featuredServices?.slice(2, 5).map((service, indx: number) => {
                                 return (
-                                    <Link to={`/services/details/${service?._id}`} key={service._id}>
+                                    
                                         <div key={indx} className="keen-slider__slide">
                                             <blockquote
                                                 className="flex h-full flex-col justify-between shadow-sm"
@@ -189,7 +189,7 @@ const FeaturedServices = () => {
                                             </blockquote>
                                         </div>
 
-                                    </Link>
+                                  
                                 )
                             })}
                         </div>

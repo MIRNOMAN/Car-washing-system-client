@@ -37,9 +37,7 @@ const Login = () => {
                 token: serverResponse?.data?.token
             }));
 
-            if (redirect) {
-                navigate(`/`);
-            }
+            navigate(redirect ? redirect : '/');
             toast.success('Logged in Success', { id: toastId });
         }
 

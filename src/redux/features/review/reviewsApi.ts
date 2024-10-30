@@ -17,7 +17,7 @@ const ratingApi = baseApi.injectEndpoints({
         method: "POST",
         body: reviewInfo,
       }),
-      invalidatesTags: ["Rating"],
+      invalidatesTags: ["Rating"], // Ensures data is refetched
     }),
   }),
 });

@@ -33,7 +33,7 @@ const Register = () => {
 
     const { password2, ...dataWithoutConfirmPassword } = data;
     const dataForBackend = { ...dataWithoutConfirmPassword, role: "user" };
-   
+   console.log(dataForBackend)
     try {
       const serverResponse = await createUser(dataForBackend).unwrap();
    
