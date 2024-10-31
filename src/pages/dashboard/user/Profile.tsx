@@ -8,6 +8,7 @@ import CustomModal from "../../../components/reUsable/CustomModal";
 import FormikForm from "../../../components/formik/FormikForm";
 import Input from "../../../components/formik/Input";
 
+
 type TEditUserInitialValues = {
   name: string;
   phone: string;
@@ -56,7 +57,9 @@ const Profile = () => {
   }
 
   return (
-    <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
+    <>
+     <div>
+     <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
     <div className="p-2 md:p-4">
         <div className="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
             <h2 className="pl-6 text-2xl font-bold sm:text-xl">Public Profile</h2>
@@ -74,7 +77,7 @@ const Profile = () => {
                 
 
                 <div className="flex justify-center w-full">
-          <div className="mt-6 relative grid grid-cols-1 sm:grid-cols-2 gap-6 lg:w-[50%] lg:p-10 p-5 bg-primary-foreground/5 rounded-md w-full">
+          <div className="mt-6 relative grid grid-cols-1 sm:grid-cols-2 gap-6  lg:p-10 p-5 bg-primary-foreground/5 rounded-md w-full">
             <button
               onClick={() => setEditUserModalOpen(true)}
               className="absolute top-1 right-2 flex items-center gap-x-2"
@@ -110,14 +113,7 @@ const Profile = () => {
               <h2 className="text-lg font-semibold text-gray-700">Address</h2>
               <p className="text-gray-500">{userInfo?.address}</p>
             </div>
-            <div className="space-y-3">
-              <h2 className="text-lg font-semibold text-gray-700">
-                Member Since
-              </h2>
-              <p className="text-gray-500">
-                {new Date(userInfo?.createdAt).toLocaleDateString()}
-              </p>
-            </div>
+            
             <div className="space-y-3">
               <h2 className="text-lg font-semibold text-gray-700">
                 Last Updated
@@ -140,7 +136,7 @@ const Profile = () => {
           <Input name="name" label="Name" />
           <Input name="phone" label="Phone" />
           <Input name="address" label="Address" />
-          <button type="submit" className="form-submit-btn w-full">
+          <button type="submit" className="form-submit-btn bg-red-600 p-2 rounded-lg text-white w-full">
             Submit
           </button>
         </FormikForm>
@@ -151,6 +147,8 @@ const Profile = () => {
       
     </div>
 </main>
+     </div>
+    </>
 
   )
 }

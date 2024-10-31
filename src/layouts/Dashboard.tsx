@@ -118,7 +118,7 @@ const Dashboard = () => {
     <div className="flex">
       <div>
         {/* Desktop Sidebar */}
-        <div className="md:block hidden bg-slate-500  h-[100vh] p-5">
+        <div className="md:block hidden bg-slate-100  h-[100vh] p-5">
           <div className="flex flex-col w-[200px] gap-y-3 font-medium px-4">
             {sidebarItems?.map((menu: TRoute) =>
               menu?.children ? (
