@@ -54,7 +54,19 @@ const ServiceManagement = () => {
       }
     };
 
-
+ 
+    const handleServiceDelete = async (id: string) => {
+      setServiceDeleteModalOpen(false);
+      const toastId = toast.loading("Service deleting");
+      try {
+        const response = await deleteService(id).unwrap();
+        console.log(response);
+        toast.success("Service deleted", { id: toastId });
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong", { id: toastId });
+      }
+    };
 
   return (
     <div>ServiceManagement</div>
