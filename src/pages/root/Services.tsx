@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-import { Form, Input, Button, Select, Spin } from "antd";
+import { Form, Input,  Select, Spin } from "antd";
 import { Link } from "react-router-dom";
 import { MdOutlineDoubleArrow } from "react-icons/md";
-import { BsCurrencyDollar } from "react-icons/bs";
+
 
 import { useGetAllServicesQuery } from "../../redux/features/services/services.api";
 import { maxDurationOptions, minDurationOptions, sortOptions } from "../../utils/list.utils";
@@ -75,8 +75,8 @@ const Services = () => {
   }
 
   return (
-    <div className="container">
-      <div className="bg-gray-100 p-6 rounded-lg shadow-md text-center">
+    <div className="px-10 bg-gray-100">
+      <div className=" p-6  text-center">
         <h2 className="text-2xl font-bold text-gray-800">What We Offer</h2>
         <p className="mt-2 text-gray-600">
           Delivering quality services across a wide range of specialties
@@ -132,14 +132,13 @@ const Services = () => {
       </div>
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
         {filteredServices.map((item: TService) => (
-          <div key={item?._id} className="bg-primary-foreground/5 p-5 rounded-md">
-            <h3 className="text-xl font-semibold mb-2">{item?.name}</h3>
-            <p className="">{item?.description.slice(0, 50)}...</p>
-            <div className="flex gap-x-5 w-full mt-2">
-              <p className="font-medium">Duration: {item?.duration}</p>
-              <p className="font-medium flex items-center">
-                Price: {item?.price} <BsCurrencyDollar />
-              </p>
+          <div key={item?._id} className="group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out">
+          <div className="p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-md group-hover:bg-rose-600 group-hover:text-white transition-colors duration-300">
+            <h2 className="text-xl font-semibold mb-2">{item.name}</h2>
+            <p className="text-gray-600 mb-4 group-hover:text-white">{item.description}</p>
+            <div className="flex justify-between items-center">
+              <span className="text-lg font-bold">${item.price}</span>
+              <span className="text-sm text-gray-500 group-hover:text-white">{item.duration} min</span>
             </div>
             <div className="flex justify-between">
               <Link
@@ -149,7 +148,10 @@ const Services = () => {
                 Learn more <MdOutlineDoubleArrow className="mt-1 ms-1" />
               </Link>
             </div>
+
           </div>
+          <div className="bg-blue-500 h-1 transition-transform duration-300 transform group-hover:scale-x-100" style={{ height: '4px' }}></div>
+        </div>
         ))}
       </div>
     </div>
