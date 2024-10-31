@@ -22,13 +22,15 @@ const UpcomingBookings = () => {
   const futureBookings = filterUpcomingBookings(bookingData);
 
   if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading bookings</p>;
+  if (error) return <p className="text-red-600 text-center">Error loading bookings</p>;
+
   return (
     <div>
       <div className="text-center mb-5">
         <h1 className="text-3xl font-bold text-rose-600 Oswald">Upcoming Bookings</h1>
         <p className="text-xl mt-1 Montserrat">Overview of Upcoming Bookings</p>
       </div>
+
     <div className="grid lg:grid-cols-4 md:grid-cols-3 gap-5 grid-cols-1">
       {futureBookings.map((booking) => {
         const targetDateTime = getTargetDateTime(
