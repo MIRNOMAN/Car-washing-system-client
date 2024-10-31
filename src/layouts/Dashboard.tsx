@@ -1,6 +1,23 @@
-
-import { TUser, useCurrentUser } from "../redux/features/auth/authSlice";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "../components/ui/drawer";
+import { IoMenu } from "react-icons/io5";
+import { AiOutlineCloseSquare } from "react-icons/ai";
+import { Link, Outlet } from "react-router-dom";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../components/ui/accordion";
+import { userRole } from "../utils/const.utils";
 import { useAppSelector } from "../redux/hooks";
+import { TUser, useCurrentUser } from "../redux/features/auth/authSlice";
+import Navbar from "../components/shared/Navbar";
+
 
 type TRoute = {
   path: string;
@@ -8,7 +25,7 @@ type TRoute = {
   children?: TRoute[];
 };
 
-const adminRoutes: TRoute[] = [
+const adminRoutes = [
   {
     path: "/service-management",
     name: "Service Management",
@@ -33,7 +50,7 @@ const adminRoutes: TRoute[] = [
   },
 ];
 
-const userRoutes: TRoute[] = [
+const userRoutes = [
   {
     path: "/profile",
     name: "Profile",
@@ -48,39 +65,138 @@ const userRoutes: TRoute[] = [
   },
 ];
 
+
 const Dashboard = () => {
   const user = useAppSelector(useCurrentUser) as TUser;
-  const sidebarItems = user?.role === "ADMIN" ? adminRoutes : userRoutes;
+  let sidebarItems;
 
-  return (
-    <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-8 xl:mx-auto">
-      <h1 className="border-b py-6 text-4xl font-semibold">Dashboard</h1>
-      <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
-        {/* Sidebar Menu for Larger Screens */}
-        <div className="hidden col-span-2 sm:block">
-          <ul>
-            {sidebarItems.map((route, index) => (
-              <li key={index} className="mt-5 cursor-pointer border-l-2 border-transparent px-2 py-2 font-semibold transition hover:border-l-blue-700 hover:text-blue-700">
-                {route.name}
-                {route.children && (
-                  <ul className="ml-4 mt-2">
-                    {route.children.map((child, childIndex) => (
-                      <li key={childIndex} className="cursor-pointer px-2 py-2 text-sm text-gray-700 hover:text-blue-700">
-                        {child.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+  switch (user!.role) {
+    case userRole.ADMIN:
+      sidebarItems = adminRoutes;
+      break;
+    case userRole.USER:
+      sidebarItems = userRoutes;
+      break;
+
+    default:
+      break;
+  }
+
+  const MenuItem = ({
+    path,
+    name,
+    children,
+  }: {
+    path: string;
+    name: string;
+    children?: Array<{ path: string; name: string }>;
+  }) => (
+    <AccordionItem value={path} className="border-b-0">
+      <AccordionTrigger className="py-1">{name}</AccordionTrigger>
+      {children && (
+        <AccordionContent>
+          <ul className="ms-3">
+            {children.map((subRoute) => (
+              <li key={subRoute.path}>
+                <Link
+                  to={`/${user.role + subRoute.path}`}
+                  className="block py-2 text-base"
+                >
+                  {subRoute.name}
+                </Link>
               </li>
             ))}
           </ul>
+        </AccordionContent>
+      )}
+    </AccordionItem>
+  );
+
+  return (
+    <div>
+    <Navbar />
+    <div className="flex">
+      <div>
+        {/* Desktop Sidebar */}
+        <div className="md:block hidden bg-primary-foreground/10 h-[100vh] p-5">
+          <div className="flex flex-col w-[200px] gap-y-3 font-medium px-4">
+            {sidebarItems?.map((menu: TRoute) =>
+              menu?.children ? (
+                <Accordion
+                  key={menu.path}
+                  type="single"
+                  collapsible
+                  className=""
+                >
+                  <MenuItem
+                    path={`/${user.role}${menu.path}`}
+                    name={menu.name}
+                    children={menu?.children}
+                  />
+                </Accordion>
+              ) : (
+                <Link
+                  key={menu.path}
+                  to={`/${user.role}${menu.path}`}
+                  className="block"
+                >
+                  {menu.name}
+                </Link>
+              )
+            )}
+          </div>
         </div>
 
-      {/* Main Content */}
-     
-        
+        {/* Mobile Drawer */}
+        <div className="md:hidden block bg-primary-foreground/20 h-[100vh] p-3">
+          <Drawer direction="left">
+            <DrawerTrigger>
+              <IoMenu className="text-2xl" />
+            </DrawerTrigger>
+            <DrawerContent className="left-0 top-0 mt-0 rounded-l-none w-[220px] dashboard-drawer">
+              <DrawerClose className="flex justify-end m-2">
+                <AiOutlineCloseSquare className="text-3xl p-1" />
+              </DrawerClose>
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full p-5 space-y-3"
+              >
+                {sidebarItems?.map((menu: TRoute) =>
+                  menu?.children ? (
+                    <Accordion
+                      key={menu.path}
+                      type="single"
+                      collapsible
+                      className=""
+                    >
+                      <MenuItem
+                        path={`/${user.role}${menu.path}`}
+                        name={menu.name}
+                        children={menu?.children}
+                      />
+                    </Accordion>
+                  ) : (
+                    <Link
+                      key={menu.path}
+                      to={`/${user.role}${menu.path}`}
+                      className="block"
+                    >
+                      {menu.name}
+                    </Link>
+                  )
+                )}
+              </Accordion>
+            </DrawerContent>
+          </Drawer>
+        </div>
+      </div>
+
+      <div className="p-5 w-full max-h-[100vh] overflow-y-scroll">
+        <Outlet />
       </div>
     </div>
+  </div>
   );
 };
 
