@@ -8,9 +8,30 @@ import { useState } from "react";
 import { TService, TSlot } from "@/types";
 import { formatDateToDDMMYYYY } from "@/utils/utils";
 
+interface InitialValues {
+  slot: string;
+}
+
+const initialValues: InitialValues = {
+  slot: "",
+};
+
 
 const ServiceDetails = () => {
-  
+  const params = useParams();
+  const serviceId = params?.id;
+  const { data, isLoading } = useGetServiceDetailsQuery({ id: serviceId });
+  const [selectedSlot, setSetSelectedSlot] = useState<(TService | TSlot)[]>([]);
+  const serviceDetails = data?.data?.service as TService;
+  const availableSlots = data?.data?.slots;
+
+  const onSubmit = (values: InitialValues) => {
+    console.log(values);
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
  
