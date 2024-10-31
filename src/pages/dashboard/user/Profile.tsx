@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import LoadingSpinier from "../../../components/global/LoadingSpinier";
 import { TErrorResponse } from "../../../types/redux.type";
+import { FaEdit } from "react-icons/fa";
 
 type TEditUserInitialValues = {
   name: string;
@@ -66,8 +67,83 @@ const Profile = () => {
                 </div>
 
                 
+
+                <div className="flex justify-center w-full">
+          <div className="mt-6 relative grid grid-cols-1 sm:grid-cols-2 gap-6 lg:w-[50%] lg:p-10 p-5 bg-primary-foreground/5 rounded-md w-full">
+            <button
+              onClick={() => setEditUserModalOpen(true)}
+              className="absolute top-1 right-2 flex items-center gap-x-2"
+            >
+              <FaEdit /> Edit profile
+            </button>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">Name</h2>
+              <p className="text-gray-500">{userInfo?.name}</p>
             </div>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">Email</h2>
+              <p className="text-gray-500">{userInfo?.email}</p>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">Phone</h2>
+              <p className="text-gray-500">{userInfo?.phone}</p>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">Role</h2>
+              <p
+                className={`text-gray-500 ${
+                  userInfo?.role === "admin"
+                    ? "text-green-600"
+                    : "text-blue-600"
+                }`}
+              >
+                {userInfo?.role.charAt(0).toUpperCase() +
+                  userInfo?.role.slice(1)}
+              </p>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">Address</h2>
+              <p className="text-gray-500">{userInfo?.address}</p>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">
+                Member Since
+              </h2>
+              <p className="text-gray-500">
+                {new Date(userInfo?.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-lg font-semibold text-gray-700">
+                Last Updated
+              </h2>
+              <p className="text-gray-500">
+                {new Date(userInfo?.updatedAt).toLocaleDateString()}
+              </p>
+            </div>
+          </div>
         </div>
+      </div>
+      <CustomModal
+        isOpen={isEditUserModalOpen}
+        setIsOpen={setEditUserModalOpen}
+      >
+        <FormikForm
+          initialValues={userProfileInitialValues}
+          onSubmit={onSubmit}
+        >
+          <Input name="name" label="Name" />
+          <Input name="phone" label="Phone" />
+          <Input name="address" label="Address" />
+          <button type="submit" className="form-submit-btn w-full">
+            Submit
+          </button>
+        </FormikForm>
+      </CustomModal>
+
+       
+        </div>
+      
     </div>
 </main>
 
