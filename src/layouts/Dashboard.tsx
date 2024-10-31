@@ -1,5 +1,52 @@
 
 
+
+type TRoute = {
+  path: string;
+  name: string;
+  children?: TRoute[];
+};
+
+const adminRoutes = [
+  {
+    path: "/service-management",
+    name: "Service Management",
+  },
+  {
+    path: "/slot-management",
+    name: "Slot Management",
+  },
+  {
+    path: "/user-management",
+    name: "User Management",
+    children: [
+      {
+        path: "/user-management/bookings",
+        name: "Bookings",
+      },
+      {
+        path: "/user-management",
+        name: "User Management",
+      },
+    ],
+  },
+];
+
+const userRoutes = [
+  {
+    path: "/profile",
+    name: "Profile",
+  },
+  {
+    path: "/past-bookings",
+    name: "Past Bookings",
+  },
+  {
+    path: "/upcoming-bookings",
+    name: "Upcoming Bookings",
+  },
+];
+
 const Dashboard = () => {
   return (
     <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-8 xl:mx-auto">

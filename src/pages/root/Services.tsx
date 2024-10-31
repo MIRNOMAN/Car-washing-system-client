@@ -130,7 +130,7 @@ const Services = () => {
           <div key={item?._id} className="group rounded-lg overflow-hidden shadow-lg transition-transform transform hover:scale-105 duration-300 ease-in-out">
             <div className="p-4 md:p-6 bg-gray-100 border border-gray-300 rounded-lg shadow-md group-hover:bg-rose-600 group-hover:text-white transition-colors duration-300">
               <h2 className="text-lg md:text-xl font-semibold mb-2">{item.name}</h2>
-              <p className="text-gray-600 text-sm md:text-base mb-4 group-hover:text-white">{item.description}</p>
+              <p className="text-gray-600 text-sm md:text-base mb-4 group-hover:text-white">{item?.description.slice(0, 50)}...</p>
               <div className="flex justify-between items-center">
                 <span className="text-lg font-bold">${item.price}</span>
                 <span className="text-sm text-gray-500 group-hover:text-white">{item.duration} min</span>
