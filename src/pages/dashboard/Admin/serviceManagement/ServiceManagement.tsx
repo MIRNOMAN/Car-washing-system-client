@@ -6,6 +6,9 @@ import CustomModal from "../../../../components/reUsable/CustomModal";
 import FormikForm from "../../../../components/formik/FormikForm";
 import Input from "../../../../components/formik/Input";
 import LoadingSpinier from "../../../../components/global/LoadingSpinier";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+
 
 type TInitialValues = {
   name: string;
@@ -109,18 +112,18 @@ const ServiceManagement = () => {
     <div className="">
     <div className="text-center">
         <h1 className="text-3xl font-bold text-rose-600 Oswald">Service Management</h1>
-        <p className="text-xl mt-1 Montserrat">Manage your services efficiently and keep track of all service details</p>
+        <p className="text-xl mt-1 Montserrat mb-5">Manage your services efficiently and keep track of all service details</p>
       </div>
       <div className="flex justify-end mb-5">
         <button
           onClick={() => setAddServiceModalOpen(true)}
-          className="form-submit-btn"
+          className="text-white p-3 rounded-lg bg-rose-600 hover:bg-rose-700 border-0"
         >
           Add Service
         </button>
       </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full bg-white border  border-gray-200">
           <thead>
             <tr>
               <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">
@@ -143,7 +146,7 @@ const ServiceManagement = () => {
           <tbody>
             {}
             {data?.data.map((service: TService) => (
-              <tr key={service._id} className="hover:bg-gray-100">
+              <tr key={service._id} className="hover:bg-rose-600 hover:text-white">
                 <td className="px-6 py-4 border-b border-gray-200">
                   {service.name}
                 </td>
@@ -157,24 +160,25 @@ const ServiceManagement = () => {
                   {service.duration} mins
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
-                  <div className="flex space-x-2">
+                  <div className="flex hover:text-white space-x-2">
                     <button
                       onClick={() => {
                         setServiceDetails(service);
                         setServiceUpdateModalOpen(true);
                       }}
-                      className="text-white bg-primary-foreground py-1 px-4 rounded-md font-medium"
+                      className=" hover:text-white bg-primary-foreground py-1 px-4 rounded-md font-medium"
                     >
-                      Edit
+                      <FaEdit/>
+                     
                     </button>
                     <button
                       onClick={() => {
                         setServiceDeleteModalOpen(true);
                         setServiceId(service._id);
                       }}
-                      className="text-white bg-primary py1 px-4 rounded-md font-medium"
+                      className=" bg-primary py1 px-4 rounded-md font-medium"
                     >
-                      Delete
+                      <MdDelete /> 
                     </button>
                   </div>
                 </td>
@@ -194,7 +198,7 @@ const ServiceManagement = () => {
         <Input name="description" label="Description" />
         <Input name="price" label="Price" type="number" />
         <Input name="duration" label="Duration" type="number" />
-        <button type="submit" className="form-submit-btn w-full">
+        <button type="submit" className=" bg-red-600 p-2 rounded-lg text-white w-full">
           Submit
         </button>
       </FormikForm>
@@ -212,7 +216,7 @@ const ServiceManagement = () => {
         <Input name="description" label="Description" />
         <Input name="price" label="Price" type="number" />
         <Input name="duration" label="Duration" type="number" />
-        <button type="submit" className="form-submit-btn w-full">
+        <button type="submit" className="bg-red-600 p-2 rounded-lg text-white w-full">
           Submit
         </button>
       </FormikForm>
@@ -228,13 +232,13 @@ const ServiceManagement = () => {
         <div className="flex justify-between mt-5 w-full">
           <button
             onClick={() => setServiceDeleteModalOpen(false)}
-            className="text-white bg-primary-foreground py-2 px-6 font-semibold rounded-md"
+            className="bg-blue-600 p-2 rounded-lg text-white w-full"
           >
             Cancel
           </button>
           <button
             onClick={() => handleServiceDelete(serviceID)}
-            className="text-white bg-primary py-2 px-6 font-semibold rounded-md"
+            className="bg-red-600 p-2 rounded-lg text-white w-full"
           >
             Delete
           </button>
