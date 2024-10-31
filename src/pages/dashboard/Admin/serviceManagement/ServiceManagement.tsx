@@ -68,6 +68,38 @@ const ServiceManagement = () => {
       }
     };
 
+
+    const handleServiceUpdate = async (values: TInitialValues) => {
+      console.log(values);
+      if (!serviceDetails) {
+        // Handle the case where serviceDetails is null
+        toast.error("Service details are not available.", { duration: 2000 });
+        return;
+      }
+      setServiceUpdateModalOpen(false);
+      const toastId = toast.loading("Service updating");
+      try {
+        const response = await serviceData({
+          serviceData: values,
+          id: serviceDetails._id,
+        }).unwrap();
+        console.log(response);
+        toast.success(response.message, { id: toastId, duration: 2000 });
+      } catch (error) {
+        console.log(error);
+        const err = error as TErrorResponse;
+        toast.error(err?.data?.errorMessages[0].message, {
+          id: toastId,
+          duration: 2000,
+        });
+      }
+    };
+  
+    if (isLoading) {
+      return <Loader />;
+    }
+  
+
   return (
     <div>ServiceManagement</div>
   )
