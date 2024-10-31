@@ -2,6 +2,10 @@ import { toast } from "sonner";
 import { TErrorResponse, TService } from "../../../../types/redux.type";
 import { useState } from "react";
 import { useCreateServiceMutation, useDeleteServiceMutation, useGetServicesQuery, useUpdateServiceMutation } from "../../../../redux/features/services/services.api";
+import CustomModal from "../../../../components/reUsable/CustomModal";
+import FormikForm from "../../../../components/formik/FormikForm";
+import Input from "../../../../components/formik/Input";
+import LoadingSpinier from "../../../../components/global/LoadingSpinier";
 
 type TInitialValues = {
   name: string;
@@ -96,17 +100,17 @@ const ServiceManagement = () => {
     };
   
     if (isLoading) {
-      return <Loader />;
+      return <LoadingSpinier />;
     }
   
 
   return (
     <>
     <div className="">
-      <SectionTitle
-        title="Service Management"
-        subTitle="Manage your services efficiently and keep track of all service details"
-      />
+    <div className="text-center">
+        <h1 className="text-3xl font-bold text-rose-600 Oswald">Service Management</h1>
+        <p className="text-xl mt-1 Montserrat">Manage your services efficiently and keep track of all service details</p>
+      </div>
       <div className="flex justify-end mb-5">
         <button
           onClick={() => setAddServiceModalOpen(true)}
