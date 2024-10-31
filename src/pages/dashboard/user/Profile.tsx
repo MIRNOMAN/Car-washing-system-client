@@ -2,6 +2,11 @@ import { toast } from "sonner";
 import LoadingSpinier from "../../../components/global/LoadingSpinier";
 import { TErrorResponse } from "../../../types/redux.type";
 import { FaEdit } from "react-icons/fa";
+import { useGetUserInfoQuery, useUpdateUserMutation } from "../../../redux/features/user/user.api";
+import { useState } from "react";
+import CustomModal from "../../../components/reUsable/CustomModal";
+import FormikForm from "../../../components/formik/FormikForm";
+import Input from "../../../components/formik/Input";
 
 type TEditUserInitialValues = {
   name: string;
