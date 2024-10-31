@@ -1,7 +1,21 @@
+import LoadingSpinier from "../../../components/global/LoadingSpinier";
+import { useGetMyBookingQuery } from "../../../redux/features/booking/booking.api";
 
 
 const PastBookings = () => {
+  const { data, isLoading, error } = useGetMyBookingQuery(undefined);
+  const bookingData = data?.data;
+
+  if (isLoading) {
+    return <LoadingSpinier />;
+  }
+
   return (
+    <div> 
+      <div>
+        <h1>Fast Booking</h1>
+        <p>Review your past booking details</p>
+      </div>
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50  dark:text-gray-400">
@@ -47,7 +61,7 @@ const PastBookings = () => {
     </table>
 </div>
 
-
+</div>
   )
 }
 
