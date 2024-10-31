@@ -34,10 +34,10 @@ const ServiceDetails = () => {
   }
 
   return (
-    <div className="container">
-      <div>
-        <h1>{serviceDetails?.name}</h1>
-        <p>{serviceDetails?.description}</p>
+    <div className="container my-7">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-rose-600 Oswald">{serviceDetails?.name}</h1>
+        <p className="text-xl mt-1 Montserrat">{serviceDetails?.description}</p>
       </div>
       {availableSlots.length === 0 && (
         <div className="my-10 text-xl font-medium text-center">
