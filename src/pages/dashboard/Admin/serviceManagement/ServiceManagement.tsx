@@ -101,7 +101,143 @@ const ServiceManagement = () => {
   
 
   return (
-    <div>ServiceManagement</div>
+    <>
+    <div className="">
+      <SectionTitle
+        title="Service Management"
+        subTitle="Manage your services efficiently and keep track of all service details"
+      />
+      <div className="flex justify-end mb-5">
+        <button
+          onClick={() => setAddServiceModalOpen(true)}
+          className="form-submit-btn"
+        >
+          Add Service
+        </button>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">
+                Name
+              </th>
+              <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">
+                Description
+              </th>
+              <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">
+                Price
+              </th>
+              <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">
+                Duration (mins)
+              </th>
+              <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-gray-600 tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {}
+            {data?.data.map((service: TService) => (
+              <tr key={service._id} className="hover:bg-gray-100">
+                <td className="px-6 py-4 border-b border-gray-200">
+                  {service.name}
+                </td>
+                <td className="px-6 py-4 border-b border-gray-200">
+                  {service.description}
+                </td>
+                <td className="px-6 py-4 border-b border-gray-200">
+                  ${service.price}
+                </td>
+                <td className="px-6 py-4 border-b border-gray-200">
+                  {service.duration} mins
+                </td>
+                <td className="px-6 py-4 border-b border-gray-200">
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => {
+                        setServiceDetails(service);
+                        setServiceUpdateModalOpen(true);
+                      }}
+                      className="text-white bg-primary-foreground py-1 px-4 rounded-md font-medium"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        setServiceDeleteModalOpen(true);
+                        setServiceId(service._id);
+                      }}
+                      className="text-white bg-primary py1 px-4 rounded-md font-medium"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {/* create service */}
+    <CustomModal
+      isOpen={isAddServiceModalOpen}
+      setIsOpen={setAddServiceModalOpen}
+    >
+      <FormikForm initialValues={initialValues} onSubmit={onSubmit}>
+        <Input name="name" label="Name" />
+        <Input name="description" label="Description" />
+        <Input name="price" label="Price" type="number" />
+        <Input name="duration" label="Duration" type="number" />
+        <button type="submit" className="form-submit-btn w-full">
+          Submit
+        </button>
+      </FormikForm>
+    </CustomModal>
+    {/* update service */}
+    <CustomModal
+      isOpen={isServiceUpdateModalOpen}
+      setIsOpen={setServiceUpdateModalOpen}
+    >
+      <FormikForm
+        initialValues={serviceUpdateInitialValues}
+        onSubmit={handleServiceUpdate}
+      >
+        <Input name="name" label="Name" />
+        <Input name="description" label="Description" />
+        <Input name="price" label="Price" type="number" />
+        <Input name="duration" label="Duration" type="number" />
+        <button type="submit" className="form-submit-btn w-full">
+          Submit
+        </button>
+      </FormikForm>
+    </CustomModal>
+    {/* delete service */}
+    <CustomModal
+      isOpen={isServiceDeleteModalOpen}
+      setIsOpen={setServiceDeleteModalOpen}
+    >
+      <div className="flex flex-col items-center w-full">
+        <h2 className="text-xl font-semibold">Are you sure?</h2>
+        <h3 className="text-lg font-medium">You want to delete it?</h3>
+        <div className="flex justify-between mt-5 w-full">
+          <button
+            onClick={() => setServiceDeleteModalOpen(false)}
+            className="text-white bg-primary-foreground py-2 px-6 font-semibold rounded-md"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => handleServiceDelete(serviceID)}
+            className="text-white bg-primary py-2 px-6 font-semibold rounded-md"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </CustomModal>
+  </>
   )
 }
 
