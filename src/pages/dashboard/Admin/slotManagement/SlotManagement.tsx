@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { TSlotWithService } from "../../../../types/redux.type";
+import { TErrorResponse, TSlotWithService } from "../../../../types/redux.type";
 import { useCreateSlotMutation, useGetAllSlotsQuery, useUpdateSlotMutation } from "../../../../redux/features/slot/slots.api";
 import { useGetServicesQuery } from "../../../../redux/features/services/services.api";
+import { toast } from "sonner";
 
 const slotStatusOptions = [
   {
@@ -46,6 +47,29 @@ const SlotManagement = () => {
 
   const initialValues = {
     isBooked: selectedSlot?.isBooked || "",
+  };
+
+
+  const handleUpdateSlot = async (values: TInitialValues) => {
+    console.log(values);
+    setSlotUpdateModalOpen(false);
+    const toastId = toast.loading("Slot updating");
+    if (selectedSlot) {
+      try {
+        const response = await updateSlot({
+          slotInfo: values,
+          id: selectedSlot._id,
+        }).unwrap();
+        toast.success(response.message, { id: toastId, duration: 2000 });
+      } catch (error) {
+        console.log(error);
+        const err = error as TErrorResponse;
+        toast.error(err?.data?.errorMessages[0].message, {
+          id: toastId,
+          duration: 2000,
+        });
+      }
+    }
   };
 
   return (
