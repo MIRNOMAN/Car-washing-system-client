@@ -3,6 +3,7 @@ import { TErrorResponse, TSlotWithService } from "../../../../types/redux.type";
 import { useCreateSlotMutation, useGetAllSlotsQuery, useUpdateSlotMutation } from "../../../../redux/features/slot/slots.api";
 import { useGetServicesQuery } from "../../../../redux/features/services/services.api";
 import { toast } from "sonner";
+import LoadingSpinier from "../../../../components/global/LoadingSpinier";
 
 const slotStatusOptions = [
   {
@@ -71,6 +72,27 @@ const SlotManagement = () => {
       }
     }
   };
+
+
+  const handleCreateSlot = async (values: TCreateSlotInitialValues) => {
+    setSlotCreateModalOpen(false);
+    const toastId = toast.loading("Slot creating");
+    try {
+      const response = await createSlot(values).unwrap();
+      toast.success(response.message, { id: toastId, duration: 2000 });
+    } catch (error) {
+      console.log("error", error);
+      const err = error as TErrorResponse;
+      toast.error(err?.data?.errorMessages[0].message, {
+        id: toastId,
+        duration: 2000,
+      });
+    }
+  };
+
+  if (isLoading) {
+    return <LoadingSpinier />;
+  }
 
   return (
     <div>SlotManagement</div>
