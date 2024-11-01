@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
-import "./style.css";
+
 
 interface Option {
   label: string;

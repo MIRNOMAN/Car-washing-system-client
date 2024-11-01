@@ -43,6 +43,7 @@ const SlotManagement = () => {
   const { data: servicesData } = useGetServicesQuery(undefined);
   const [updateSlot] = useUpdateSlotMutation();
   const [createSlot] = useCreateSlotMutation();
+  console.log(data)
   // modal
   const [isSlotUpdateModalOpen, setSlotUpdateModalOpen] = useState(false);
   const [isSlotCreateModalOpen, setSlotCreateModalOpen] = useState(false);
@@ -82,8 +83,10 @@ const SlotManagement = () => {
   const handleCreateSlot = async (values: TCreateSlotInitialValues) => {
     setSlotCreateModalOpen(false);
     const toastId = toast.loading("Slot creating");
+
     try {
       const response = await createSlot(values).unwrap();
+      console.log(response)
       toast.success(response.message, { id: toastId, duration: 2000 });
     } catch (error) {
       console.log("error", error);
@@ -109,7 +112,7 @@ const SlotManagement = () => {
         <div className="flex justify-end mb-5">
           <button
             onClick={() => setSlotCreateModalOpen(true)}
-            className="form-submit-btn"
+            className="text-white p-3 rounded-lg bg-rose-600 hover:bg-rose-700 border-0"
           >
             Create slot
           </button>
@@ -192,7 +195,7 @@ const SlotManagement = () => {
                   setFieldValue={setFieldValue}
                   placeholder="Select status"
                 />
-                <button className="form-submit-btn w-full">Submit</button>
+                <button className=" bg-red-600 p-2 rounded-lg text-white w-full">Submit</button>
               </Form>
             );
           }}
@@ -227,7 +230,7 @@ const SlotManagement = () => {
                   label="End time"
                   placeholder="ex: 17:00"
                 />
-                <button className="form-submit-btn w-full">Create slot</button>
+                <button className=" bg-red-600 p-2 rounded-lg text-white w-full">Create slot</button>
               </Form>
             );
           }}
