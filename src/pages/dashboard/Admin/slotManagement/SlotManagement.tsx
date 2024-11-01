@@ -6,9 +6,9 @@ import { toast } from "sonner";
 import LoadingSpinier from "../../../../components/global/LoadingSpinier";
 import CustomModal from "../../../../components/reUsable/CustomModal";
 import { Form, Formik, FormikProps } from "formik";
-import { Dropdown } from "antd";
 import { servicesToDropdownOption } from "../../../../utils/utils";
 import Input from "../../../../components/formik/Input";
+import Dropdown from "../../../../components/formik/Dropdown";
 
 const slotStatusOptions = [
   {
@@ -102,10 +102,10 @@ const SlotManagement = () => {
   return (
     <>
       <div className="">
-        <SectionTitle
-          title="Slot Management"
-          subTitle="Overview and manage slot"
-        />
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-rose-600 Oswald">Slot Management</h1>
+        <p className="text-xl mt-1 Montserrat mb-5">Overview and manage slot</p>
+      </div>
         <div className="flex justify-end mb-5">
           <button
             onClick={() => setSlotCreateModalOpen(true)}
