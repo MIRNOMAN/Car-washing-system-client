@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { TUser, useCurrentUser } from "../../redux/features/auth/authSlice";
 import { useCreateBookingMutation } from "../../redux/features/booking/booking.api";
 import { useAppSelector } from "../../redux/hooks";
+import { toast } from "sonner";
 
 interface TInitialValues {
   name: string;
@@ -35,6 +36,35 @@ const Book = () => {
     vehicleBrand: "RR",
     vehicleModel: "Galaxy",
     manufacturingYear: "2023",
+  };
+
+
+  const onSubmit = async (values: TInitialValues) => {
+    const toastId = toast.loading("Booking request processing", {
+      duration: 2000,
+    });
+    const bookingInfo = {
+      serviceId: serviceDetails?._id,
+      slotId: slotDetails?._id,
+      vehicleType: values?.vehicleType,
+      vehicleBrand: values?.vehicleBrand,
+      vehicleModel: values?.vehicleModel,
+      manufacturingYear: values?.manufacturingYear,
+      registrationPlate: values?.manufacturingYear,
+      amount: values?.amount,
+    };
+    try {
+      const response = await createBooking(bookingInfo).unwrap();
+      if (response?.message === "Booking successful") {
+        window.location.href = response?.data?.payment_url;
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong", {
+        id: toastId,
+        duration: 2000,
+      });
+    }
   };
 
   return (
