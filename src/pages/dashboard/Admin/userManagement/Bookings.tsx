@@ -38,22 +38,22 @@ const Bookings = () => {
             </tr>
           </thead>
           <tbody>
-            {data?.data.map((booking: TBooking) => (
+            {data?.data?.map((booking: TBooking) => (
               <tr key={booking._id} className="hover:bg-gray-100">
                 <td className="px-6 py-4 border-b border-gray-200">
-                  {booking.customer.name}
+                  {booking.customer?.name}
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
-                  {booking.service.name}
+                  {booking.service?.name}
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
                   {booking.vehicleBrand} {booking.vehicleModel}
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
-                  {booking.slot.startTime} - {booking.slot.endTime}
+                  {booking.slot?.startTime} - {booking.slot?.endTime}
                 </td>
                 <td className="px-6 py-4 border-b border-gray-200">
-                  {new Date(booking.slot.date).toLocaleDateString()}
+                  {new Date(booking.slot?.date).toLocaleDateString()}
                 </td>
               </tr>
             ))}
