@@ -39,7 +39,7 @@ const Bookings = () => {
           </thead>
           <tbody>
             {data?.data?.map((booking: TBooking) => (
-              <tr key={booking._id} className="hover:bg-gray-100">
+              <tr key={booking._id} className="hover:bg-rose-600 hover:text-white">
                 <td className="px-6 py-4 border-b border-gray-200">
                   {booking.customer?.name}
                 </td>

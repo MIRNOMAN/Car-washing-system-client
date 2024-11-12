@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import CustomModal from "../../../../components/reUsable/CustomModal";
 import { Form, Formik, FormikProps } from "formik";
 import Dropdown from "../../../../components/formik/Dropdown";
+import { FaEdit } from "react-icons/fa";
 
 const userRoleOptions = [
   {
@@ -91,7 +92,7 @@ const UserManagement = () => {
           </thead>
           <tbody>
             {data?.data.map((user: TUserResponse) => (
-              <tr key={user._id} className="hover:bg-gray-100">
+              <tr key={user._id} className="hover:bg-rose-600 hover:text-white">
                 <td className="px-6 py-4 border-b border-gray-200">
                   {user.name}
                 </td>
@@ -111,9 +112,9 @@ const UserManagement = () => {
                         setUserInfo(user);
                         setUserUpdateModalOpen(true);
                       }}
-                      className="text-white bg-primary-foreground py-1 px-4 rounded-md font-medium"
+                      className="hover:text-white bg-primary-foreground py-1 px-4 rounded-md font-medium"
                     >
-                      Edit
+                     <FaEdit/>
                     </button>
                   </div>
                 </td>
@@ -137,7 +138,7 @@ const UserManagement = () => {
                 setFieldValue={setFieldValue}
                 placeholder="Select role"
               />
-              <button className="form-submit-btn w-full">Submit</button>
+              <button className=" bg-red-600 p-2 rounded-lg text-white w-full">Submit</button>
             </Form>
           );
         }}

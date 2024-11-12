@@ -72,8 +72,8 @@ const ServiceDetails = () => {
                       <div
                         className={`p-5 rounded-md space-y-1 ${
                           checkedValue
-                            ? "bg-primary text-white"
-                            : "bg-primary-foreground/5"
+                            ? "bg-green-500 text-black"
+                            : "hover:bg-rose-600"
                         }`}
                       >
                         <h3 className="text-xl font-semibold mb-2">
@@ -104,7 +104,7 @@ const ServiceDetails = () => {
             <Link
               to="/book-now"
               state={selectedSlot}
-              className="form-submit-btn"
+              className=" bg-red-600 p-3 rounded-lg text-white w-full"
             >
               Book This Service
             </Link>

@@ -28,6 +28,7 @@ interface DropdownProps {
   optionsLabel?: string;
   defaultValue?: string;
   prefix?: string;
+
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -50,15 +51,15 @@ const Dropdown: React.FC<DropdownProps> = ({
         defaultValue={defaultValue}
       >
         <SelectTrigger
-          className={`h-[50px] font-medium gap-x-5 ${prefix}-formik-dropdown formik-dropdown`}
+          className={`h-[50px] font-medium gap-x-5 ${prefix}-formik-dropdown formik-dropdown `}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white">
           <SelectGroup>
             {optionsLabel && <SelectLabel>{optionsLabel}</SelectLabel>}
             {options?.map((item, index) => (
-              <SelectItem key={index} value={item.value}>
+              <SelectItem key={index} value={item.value} className="hover:bg-blue-500 hover:text-white transition-colors">
                 {item.label}
               </SelectItem>
             ))}

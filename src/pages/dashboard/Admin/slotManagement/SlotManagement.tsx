@@ -9,6 +9,7 @@ import { Form, Formik, FormikProps } from "formik";
 import { servicesToDropdownOption } from "../../../../utils/utils";
 import Input from "../../../../components/formik/Input";
 import Dropdown from "../../../../components/formik/Dropdown";
+import { FaEdit } from "react-icons/fa";
 
 const slotStatusOptions = [
   {
@@ -145,7 +146,7 @@ const SlotManagement = () => {
               {data?.data.map((slot: TSlotWithService) => {
                 const isBooked = slot.isBooked === "booked";
                 return (
-                  <tr key={slot._id} className="hover:bg-gray-100">
+                  <tr key={slot._id} className="hover:bg-rose-600 hover:text-white">
                     <td className="px-6 py-4 border-b border-gray-200">
                       {slot.service.name}
                     </td>
@@ -168,9 +169,9 @@ const SlotManagement = () => {
                           setSelectedSlot(slot);
                           setSlotUpdateModalOpen(true);
                         }}
-                        className="text-white bg-primary-foreground py-1 px-4 rounded-md font-medium disabled:bg-slate-300 disabled:text-slate-950 "
+                        className="hover:text-white bg-primary-foreground py-1 px-4 rounded-md font-medium disabled:bg-slate-300 disabled:text-slate-950 "
                       >
-                        Edit
+                           <FaEdit/>
                       </button>
                     </td>
                   </tr>
@@ -194,6 +195,7 @@ const SlotManagement = () => {
                   options={slotStatusOptions}
                   setFieldValue={setFieldValue}
                   placeholder="Select status"
+                
                 />
                 <button className=" bg-red-600 p-2 rounded-lg text-white w-full">Submit</button>
               </Form>

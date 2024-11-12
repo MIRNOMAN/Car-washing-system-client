@@ -24,7 +24,7 @@ import {
     if (!token || isExpired || !isUserValid) {
       toast.error("Please sign in", { duration: 2000 });
       dispatch(logout());
-      return <Navigate to="/sign-in" replace={true} />;
+      return <Navigate to="/login" replace={true} />;
     }
     return children;
   };
