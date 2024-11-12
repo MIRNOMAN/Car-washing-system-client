@@ -1,6 +1,3 @@
-
-
-
 import { RiDoubleQuotesL } from "react-icons/ri";
 import { RiDoubleQuotesR } from "react-icons/ri";
 import { FaStar } from "react-icons/fa";

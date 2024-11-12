@@ -38,7 +38,7 @@ const Recover: FC  = () => {
         const email = (event.target as HTMLFormElement).email.value;
 
         try {
-            const res = await axios.get<{ success: boolean; data: TAxiosResponse }>(`http://localhost:5000/api/auth/user/recovery`, {
+            const res = await axios.get<{ success: boolean; data: TAxiosResponse }>(`https://car-washing-system-sandy.vercel.app/api/auth/user/recovery`, {
                 params: {
                     email
                 }
@@ -130,7 +130,7 @@ const handleChangePassword = async (event: React.FormEvent<HTMLFormElement>) => 
       return;
   } else {
       // DONE: call the server to set new password;
-      const res = await axios.patch<{ success: boolean; message: string }>(`http://localhost:5000/api/auth/user/recovery/passed`, {
+      const res = await axios.patch<{ success: boolean; message: string }>(`https://car-washing-system-sandy.vercel.app/api/auth/user/recovery/passed`, {
           token: user?.token,
           newPassword: password
       });

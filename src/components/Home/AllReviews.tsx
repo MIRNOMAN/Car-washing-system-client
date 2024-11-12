@@ -1,24 +1,20 @@
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'; // Use typed hooks
-import { RootState } from '../../redux/store'; // Adjust this path
-import { deleteReview,  TReview } from '../../redux/features/review/reviewsApi'; // Adjust the path as necessary
-import { FaTrash } from 'react-icons/fa';
-import toast from 'react-hot-toast';
+import { useGetAllRatingsQuery } from '../../redux/features/review/reviewsApi';
 import Navbar from '../shared/Navbar';
 
+type TReview = {
+  id: string;
+  rating: number;
+  feedback: string;
+};
 
 const AllReviews = () => {
-  const dispatch = useAppDispatch(); // Use typed dispatch
 
-  // Fetch reviews and user from Redux state
-  const reviews = useAppSelector((state: RootState) => state.reviews.reviews);
-  const user = useAppSelector((state: RootState) => state.auth.user); // Assuming user info is stored in auth slice
+  const { data:reviews, isLoading } = useGetAllRatingsQuery(undefined);
+   
+  <p>
+    {isLoading}
+  </p>
 
-
-  // Handle delete review
-  const handleDeleteReview = (id: string) => {
-    dispatch(deleteReview(id));
-    toast.success('Review deleted successfully!');
-  };
 
   return (
     <div>
@@ -49,13 +45,7 @@ const AllReviews = () => {
                   </div>
                 </div>
 
-                {user && (
-                  <FaTrash
-                    size={15}
-                    className="text-red-500 cursor-pointer"
-                    onClick={() => handleDeleteReview(review.id)}
-                  />
-                )}
+                
               </div>
               <p className="text-gray-600 mt-2">{review.feedback}</p>
             </div>
