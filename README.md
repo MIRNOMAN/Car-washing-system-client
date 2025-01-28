@@ -5,10 +5,10 @@
 
 ## Introduction
 
-CleanCarCo is a user-friendly web application designed to simplify the car wash booking process. This frontend application provides users with easy navigation, a streamlined booking experience, and a comprehensive admin dashboard for managing services, slots, and users.
+Quickwash is a user-friendly web application designed to simplify the car wash booking process. This frontend application provides users with easy navigation, a streamlined booking experience, and a comprehensive admin dashboard for managing services, slots, and users.
 
 ## Project Description
-The CleanCarCo frontend application allows users to explore car wash services, book appointments, and manage their profiles. Administrators can manage services, slots, and users from a dedicated dashboard. The application is built with React and styled using Tailwind CSS.
+The Quickwash frontend application allows users to explore car wash services, book appointments, and manage their profiles. Administrators can manage services, slots, and users from a dedicated dashboard. The application is built with React and styled using Tailwind CSS.
 
 ## Features
 
